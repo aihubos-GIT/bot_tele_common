@@ -1,0 +1,8029 @@
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778223440258620231",
+      "type": 1,
+      "date": "1760600450447",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "1893544229933745726",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778223440258620232",
+      "type": 1,
+      "date": "1760600450447",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68amp",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778223617879006239",
+      "type": 1,
+      "date": "1760600461003",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev682pp",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778223756089711830",
+      "type": 1,
+      "date": "1760600469243",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      },
+      "after": {
+        "status": "in progress",
+        "color": "#5f55ee",
+        "orderindex": 1,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev686qn",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778223927015988670",
+      "type": 1,
+      "date": "1760600479450",
+      "field": "priority",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": {
+        "color": "#f50000",
+        "id": "1",
+        "orderindex": "1",
+        "priority": "urgent"
+      }
+    }
+  ],
+  "task_id": "86ev65b7x",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778227619798675299",
+      "type": 1,
+      "date": "1760600699567",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "12202059576892955018",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778227619798675300",
+      "type": 1,
+      "date": "1760600699567",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68cta",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778227939035541992",
+      "type": 1,
+      "date": "1760600718570",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev68cta",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778228105079648968",
+      "type": 1,
+      "date": "1760600728440",
+      "field": "duration",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev68cta",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778228106757370574",
+      "type": 1,
+      "date": "1760600728581",
+      "field": "due_date",
+      "parent_id": "901812388988",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1760562000000"
+    }
+  ],
+  "task_id": "86ev68cta",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778228278472176504",
+      "type": 1,
+      "date": "1760600738815",
+      "field": "due_date",
+      "parent_id": "901812388988",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": "1760562000000",
+      "after": "1760648400000"
+    },
+    {
+      "id": "4778228278522508153",
+      "type": 1,
+      "date": "1760600738780",
+      "field": "duration",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev68cta",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778228569120666720",
+      "type": 1,
+      "date": "1760600756108",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev68cta",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778228915167524337",
+      "type": 1,
+      "date": "1760600776746",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev68amp",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778228978384074278",
+      "type": 1,
+      "date": "1760600780527",
+      "field": "due_date",
+      "parent_id": "901812388988",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1761080400000"
+    },
+    {
+      "id": "4778228978451183143",
+      "type": 1,
+      "date": "1760600780493",
+      "field": "duration",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev68amp",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778229340251846525",
+      "type": 1,
+      "date": "1760600802111",
+      "field": "priority",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": {
+        "color": "#f50000",
+        "id": "1",
+        "orderindex": "1",
+        "priority": "urgent"
+      }
+    }
+  ],
+  "task_id": "86ev68amp",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778229543793031192",
+      "type": 1,
+      "date": "1760600814194",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev6841y",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778233872096646619",
+      "type": 1,
+      "date": "1760601072232",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4778233872079869402",
+      "type": 1,
+      "date": "1760601072232",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "3895331014317408349",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev68fug",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778234017118902035",
+      "type": 1,
+      "date": "1760601080838",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev68fug",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778234060639000492",
+      "type": 1,
+      "date": "1760601083461",
+      "field": "due_date",
+      "parent_id": "901812388988",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1761166800000"
+    },
+    {
+      "id": "4778234060689332141",
+      "type": 1,
+      "date": "1760601083423",
+      "field": "duration",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev68fug",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778234121355745467",
+      "type": 1,
+      "date": "1760601087084",
+      "field": "priority",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": {
+        "color": "#f8ae00",
+        "id": "2",
+        "orderindex": "2",
+        "priority": "high"
+      }
+    }
+  ],
+  "task_id": "86ev68fug",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778234542598085546",
+      "type": 1,
+      "date": "1760601112198",
+      "field": "tag",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": [
+        {
+          "name": "aihub_backend",
+          "project_id": "90187443213",
+          "tag_fg": "#6E56CF",
+          "tag_bg": "#6E56CF",
+          "creator": 101536042
+        }
+      ]
+    }
+  ],
+  "task_id": "86ev68g5d",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778234542363204520",
+      "type": 1,
+      "date": "1760601112180",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4778234542279318437",
+      "type": 1,
+      "date": "1760601112179",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "12220999018364972907",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778234542279318438",
+      "type": 1,
+      "date": "1760601112179",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68g5d",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778235125170134672",
+      "type": 1,
+      "date": "1760601146887",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev68g5d",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778240172360694979",
+      "type": 1,
+      "date": "1760601447758",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "16671639011572421626",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778240172360694980",
+      "type": 1,
+      "date": "1760601447758",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68kh0",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778241018033029323",
+      "type": 1,
+      "date": "1760601498164",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "api",
+        "trace_id": "10855150236815056831",
+        "subcategory_id": "901812388988"
+      },
+      "source": "api",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778241018033029324",
+      "type": 1,
+      "date": "1760601498164",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68kzn",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778251665206638508",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "5940310318549751099",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778251665206638509",
+      "type": 1,
+      "date": "1760602132785",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68v04",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778252763862629890",
+      "type": 1,
+      "date": "1760602198270",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "4468935113063954921",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778252763862629891",
+      "type": 1,
+      "date": "1760602198270",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68vdb",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778258400201891313",
+      "type": 1,
+      "date": "1760602534217",
+      "field": "assignee_add",
+      "parent_id": "901812414647",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4778258400101228012",
+      "type": 1,
+      "date": "1760602534216",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "2677315027801058458",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778258400101228013",
+      "type": 1,
+      "date": "1760602534216",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68xpb",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778259928069399959",
+      "type": 1,
+      "date": "1760602625289",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4778259928052622742",
+      "type": 1,
+      "date": "1760602625289",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "1175622658858648533",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev68ybd",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4778260082151351861",
+      "type": 1,
+      "date": "1760602634429",
+      "field": "assignee_add",
+      "parent_id": "901812414647",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev68ybd",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778262088840605378",
+      "type": 1,
+      "date": "1760602754080",
+      "field": "assignee_add",
+      "parent_id": "901812414647",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4778262088790273728",
+      "type": 1,
+      "date": "1760602754079",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "8429854239077867120",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778262088790273729",
+      "type": 1,
+      "date": "1760602754079",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68z6q",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4778262948052169339",
+      "type": 1,
+      "date": "1760602805291",
+      "field": "assignee_add",
+      "parent_id": "901812414647",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4778262947951506040",
+      "type": 1,
+      "date": "1760602805290",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "988726430133965753",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4778262947951506041",
+      "type": 1,
+      "date": "1760602805290",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev68zgd",
+  "team_id": "90181891084",
+  "webhook_id": "7c78c062-3674-4af5-9e5f-c37147cf6be9"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "task_id": "test123",
+  "history_items": []
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "task_id": "test123",
+  "history_items": []
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "task_id": "test123",
+  "history_items": []
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "task_id": "test123",
+  "history_items": []
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "task_id": "test123",
+  "history_items": []
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "task_id": "test123",
+  "history_items": []
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779634216018074575",
+      "type": 1,
+      "date": "1760684539206",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294795597,
+        "username": "Hubos AI",
+        "email": "aihubos@charm.contact",
+        "color": "#595d66",
+        "initials": "HA",
+        "profilePicture": null,
+        "role": 1,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "in progress",
+        "color": "#5f55ee",
+        "orderindex": 1,
+        "type": "custom"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev686qn",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779634216018074575",
+      "type": 1,
+      "date": "1760684539206",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294795597,
+        "username": "Hubos AI",
+        "email": "aihubos@charm.contact",
+        "color": "#595d66",
+        "initials": "HA",
+        "profilePicture": null,
+        "role": 1,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "in progress",
+        "color": "#5f55ee",
+        "orderindex": 1,
+        "type": "custom"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev686qn",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779634258799975421",
+      "type": 1,
+      "date": "1760684541751",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294795597,
+        "username": "Hubos AI",
+        "email": "aihubos@charm.contact",
+        "color": "#595d66",
+        "initials": "HA",
+        "profilePicture": null,
+        "role": 1,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      },
+      "after": {
+        "status": "in progress",
+        "color": "#5f55ee",
+        "orderindex": 1,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev686qn",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779634258799975421",
+      "type": 1,
+      "date": "1760684541751",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294795597,
+        "username": "Hubos AI",
+        "email": "aihubos@charm.contact",
+        "color": "#595d66",
+        "initials": "HA",
+        "profilePicture": null,
+        "role": 1,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      },
+      "after": {
+        "status": "in progress",
+        "color": "#5f55ee",
+        "orderindex": 1,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev686qn",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779635771215667684",
+      "type": 1,
+      "date": "1760684631932",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779635771198890467",
+      "type": 1,
+      "date": "1760684631932",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "9312884108409191174",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6k46d",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779635771215667684",
+      "type": 1,
+      "date": "1760684631932",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779635771198890467",
+      "type": 1,
+      "date": "1760684631932",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "9312884108409191174",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6k46d",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779636407424476368",
+      "type": 1,
+      "date": "1760684669848",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4779636407323813070",
+      "type": 1,
+      "date": "1760684669846",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779636407307035853",
+      "type": 1,
+      "date": "1760684669846",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "13940344177809899133",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6k4ft",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779636407424476368",
+      "type": 1,
+      "date": "1760684669848",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4779636407323813070",
+      "type": 1,
+      "date": "1760684669846",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779636407307035853",
+      "type": 1,
+      "date": "1760684669846",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "13940344177809899133",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6k4ft",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779646927644872681",
+      "type": 1,
+      "date": "1760685296895",
+      "field": "priority",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "color": "#f50000",
+        "id": "1",
+        "orderindex": "1",
+        "priority": "urgent"
+      },
+      "after": {
+        "color": "#f8ae00",
+        "id": "2",
+        "orderindex": "2",
+        "priority": "high"
+      }
+    }
+  ],
+  "task_id": "86ev6k4ft",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779646927644872681",
+      "type": 1,
+      "date": "1760685296895",
+      "field": "priority",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "color": "#f50000",
+        "id": "1",
+        "orderindex": "1",
+        "priority": "urgent"
+      },
+      "after": {
+        "color": "#f8ae00",
+        "id": "2",
+        "orderindex": "2",
+        "priority": "high"
+      }
+    }
+  ],
+  "task_id": "86ev6k4ft",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779647349474414980",
+      "type": 1,
+      "date": "1760685322048",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4779647349440860547",
+      "type": 1,
+      "date": "1760685322047",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779647349424083330",
+      "type": 1,
+      "date": "1760685322047",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "8138736108574325737",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6k923",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779647349474414980",
+      "type": 1,
+      "date": "1760685322048",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4779647349440860547",
+      "type": 1,
+      "date": "1760685322047",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779647349424083330",
+      "type": 1,
+      "date": "1760685322047",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "8138736108574325737",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6k923",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779651090273493174",
+      "type": 1,
+      "date": "1760685545020",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "17596655076679426812",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779651090273493175",
+      "type": 1,
+      "date": "1760685545020",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779651090273493174",
+      "type": 1,
+      "date": "1760685545020",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "17596655076679426812",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779651090273493175",
+      "type": 1,
+      "date": "1760685545020",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779652238959142322",
+      "type": 1,
+      "date": "1760685613346",
+      "field": "duration",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779652238959142322",
+      "type": 1,
+      "date": "1760685613346",
+      "field": "duration",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779652239898666419",
+      "type": 1,
+      "date": "1760685613532",
+      "field": "due_date",
+      "parent_id": "901812388988",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1761339600000"
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779652239898666419",
+      "type": 1,
+      "date": "1760685613532",
+      "field": "due_date",
+      "parent_id": "901812388988",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1761339600000"
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779652238959142322",
+      "type": 1,
+      "date": "1760685613346",
+      "field": "duration",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779652239898666419",
+      "type": 1,
+      "date": "1760685613532",
+      "field": "due_date",
+      "parent_id": "901812388988",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1761339600000"
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779652543348172521",
+      "type": 1,
+      "date": "1760685631608",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779652543348172521",
+      "type": 1,
+      "date": "1760685631608",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779663681926420822",
+      "type": 1,
+      "date": "1760686295538",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4779663681876089172",
+      "type": 1,
+      "date": "1760686295537",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "865152035892904349",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779663681876089173",
+      "type": 1,
+      "date": "1760686295537",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6khwe",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779663681926420822",
+      "type": 1,
+      "date": "1760686295538",
+      "field": "assignee_add",
+      "parent_id": "901812388988",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null
+      }
+    },
+    {
+      "id": "4779663681876089172",
+      "type": 1,
+      "date": "1760686295537",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "865152035892904349",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779663681876089173",
+      "type": 1,
+      "date": "1760686295537",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6khwe",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779681960820696999",
+      "type": 1,
+      "date": "1760687385047",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "11068442610331231326",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779681960820697000",
+      "type": 1,
+      "date": "1760687385047",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6kz52",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779681960820696999",
+      "type": 1,
+      "date": "1760687385047",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "11068442610331231326",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779681960820697000",
+      "type": 1,
+      "date": "1760687385047",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6kz52",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779682168891730431",
+      "type": 1,
+      "date": "1760687397406",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev6kz52",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779682168891730431",
+      "type": 1,
+      "date": "1760687397406",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev6kz52",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779689230891698060",
+      "type": 1,
+      "date": "1760687818377",
+      "field": "task_creation",
+      "parent_id": "901812441627",
+      "data": {
+        "via": "user",
+        "trace_id": "8543572092110191403",
+        "subcategory_id": "901812441627"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779689230891698061",
+      "type": 1,
+      "date": "1760687818377",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779689230891698060",
+      "type": 1,
+      "date": "1760687818377",
+      "field": "task_creation",
+      "parent_id": "901812441627",
+      "data": {
+        "via": "user",
+        "trace_id": "8543572092110191403",
+        "subcategory_id": "901812441627"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779689230891698061",
+      "type": 1,
+      "date": "1760687818377",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779689525197621484",
+      "type": 1,
+      "date": "1760687835874",
+      "field": "assignee_add",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779689525197621484",
+      "type": 1,
+      "date": "1760687835874",
+      "field": "assignee_add",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779689553366567170",
+      "type": 1,
+      "date": "1760687837589",
+      "field": "priority",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": {
+        "color": "#f50000",
+        "id": "1",
+        "orderindex": "1",
+        "priority": "urgent"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779689553366567170",
+      "type": 1,
+      "date": "1760687837589",
+      "field": "priority",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": {
+        "color": "#f50000",
+        "id": "1",
+        "orderindex": "1",
+        "priority": "urgent"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779697796415453186",
+      "type": 1,
+      "date": "1760688328893",
+      "field": "assignee_add",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779697796415453186",
+      "type": 1,
+      "date": "1760688328893",
+      "field": "assignee_add",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779699674121453791",
+      "type": 1,
+      "date": "1760688440842",
+      "field": "task_creation",
+      "parent_id": "901812441627",
+      "data": {
+        "via": "user",
+        "trace_id": "7297117830979061417",
+        "subcategory_id": "901812441627"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779699674121453792",
+      "type": 1,
+      "date": "1760688440842",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6mafj",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779699674121453791",
+      "type": 1,
+      "date": "1760688440842",
+      "field": "task_creation",
+      "parent_id": "901812441627",
+      "data": {
+        "via": "user",
+        "trace_id": "7297117830979061417",
+        "subcategory_id": "901812441627"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779699674121453792",
+      "type": 1,
+      "date": "1760688440842",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6mafj",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706463542013295",
+      "type": 1,
+      "date": "1760688845484",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "cancelled",
+        "color": "#008844",
+        "orderindex": 7,
+        "type": "closed"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706463542013295",
+      "type": 1,
+      "date": "1760688845484",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "cancelled",
+        "color": "#008844",
+        "orderindex": 7,
+        "type": "closed"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706463542013295",
+      "type": 1,
+      "date": "1760688845484",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "cancelled",
+        "color": "#008844",
+        "orderindex": 7,
+        "type": "closed"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706463542013295",
+      "type": 1,
+      "date": "1760688845484",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "cancelled",
+        "color": "#008844",
+        "orderindex": 7,
+        "type": "closed"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706463542013295",
+      "type": 1,
+      "date": "1760688845484",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "cancelled",
+        "color": "#008844",
+        "orderindex": 7,
+        "type": "closed"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706463542013295",
+      "type": 1,
+      "date": "1760688845484",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "cancelled",
+        "color": "#008844",
+        "orderindex": 7,
+        "type": "closed"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706445925936480",
+      "type": 1,
+      "date": "1760688844439",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "custom"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "update required",
+        "color": "#f8ae00",
+        "orderindex": 4,
+        "type": "custom"
+      }
+    }
+  ],
+  "task_id": "86ev6m451",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779706463542013295",
+      "type": 1,
+      "date": "1760688845484",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "cancelled",
+        "color": "#008844",
+        "orderindex": 7,
+        "type": "closed"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6m3en",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779707415011488282",
+      "type": 1,
+      "date": "1760688902235",
+      "field": "task_creation",
+      "parent_id": "901812441627",
+      "data": {
+        "via": "user",
+        "trace_id": "17518417211129613109",
+        "subcategory_id": "901812441627"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779707415011488283",
+      "type": 1,
+      "date": "1760688902235",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6meap",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779707415011488282",
+      "type": 1,
+      "date": "1760688902235",
+      "field": "task_creation",
+      "parent_id": "901812441627",
+      "data": {
+        "via": "user",
+        "trace_id": "17518417211129613109",
+        "subcategory_id": "901812441627"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4779707415011488283",
+      "type": 1,
+      "date": "1760688902235",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6meap",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779707675846865763",
+      "type": 1,
+      "date": "1760688917752",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6mafj",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779707675846865763",
+      "type": 1,
+      "date": "1760688917752",
+      "field": "status",
+      "parent_id": "901812441627",
+      "data": {
+        "status_type": "done"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "complete",
+        "color": "#0f9d9f",
+        "orderindex": 6,
+        "type": "done"
+      }
+    }
+  ],
+  "task_id": "86ev6mafj",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779707874975642692",
+      "type": 1,
+      "date": "1760688929613",
+      "field": "assignee_add",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev6meap",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779707874975642692",
+      "type": 1,
+      "date": "1760688929613",
+      "field": "assignee_add",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "after": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null
+      }
+    }
+  ],
+  "task_id": "86ev6meap",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779707923579237518",
+      "type": 1,
+      "date": "1760688932498",
+      "field": "duration",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6meap",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779707923579237518",
+      "type": 1,
+      "date": "1760688932498",
+      "field": "duration",
+      "parent_id": "901812441627",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6meap",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779707924485207186",
+      "type": 1,
+      "date": "1760688932583",
+      "field": "due_date",
+      "parent_id": "901812441627",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1760734800000"
+    }
+  ],
+  "task_id": "86ev6meap",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4779707924485207186",
+      "type": 1,
+      "date": "1760688932583",
+      "field": "due_date",
+      "parent_id": "901812441627",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1760734800000"
+    }
+  ],
+  "task_id": "86ev6meap",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779708793226230030",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "status",
+      "parent_id": "901812441694",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779708793209452813",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "task_creation",
+      "parent_id": "901812441694",
+      "data": {
+        "via": "user",
+        "trace_id": "14746539573207759633",
+        "subcategory_id": "901812441694"
+      },
+      "source": "user",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779708793226230030",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "status",
+      "parent_id": "901812441694",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779708793209452813",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "task_creation",
+      "parent_id": "901812441694",
+      "data": {
+        "via": "user",
+        "trace_id": "14746539573207759633",
+        "subcategory_id": "901812441694"
+      },
+      "source": "user",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779708793226230030",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "status",
+      "parent_id": "901812441694",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779708793209452813",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "task_creation",
+      "parent_id": "901812441694",
+      "data": {
+        "via": "user",
+        "trace_id": "14746539573207759633",
+        "subcategory_id": "901812441694"
+      },
+      "source": "user",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779708793226230030",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "status",
+      "parent_id": "901812441694",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779708793209452813",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "task_creation",
+      "parent_id": "901812441694",
+      "data": {
+        "via": "user",
+        "trace_id": "14746539573207759633",
+        "subcategory_id": "901812441694"
+      },
+      "source": "user",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779708793226230030",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "status",
+      "parent_id": "901812441694",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779708793209452813",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "task_creation",
+      "parent_id": "901812441694",
+      "data": {
+        "via": "user",
+        "trace_id": "14746539573207759633",
+        "subcategory_id": "901812441694"
+      },
+      "source": "user",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779708793226230030",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "status",
+      "parent_id": "901812441694",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779708793209452813",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "task_creation",
+      "parent_id": "901812441694",
+      "data": {
+        "via": "user",
+        "trace_id": "14746539573207759633",
+        "subcategory_id": "901812441694"
+      },
+      "source": "user",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779708793226230030",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "status",
+      "parent_id": "901812441694",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779708793209452813",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "task_creation",
+      "parent_id": "901812441694",
+      "data": {
+        "via": "user",
+        "trace_id": "14746539573207759633",
+        "subcategory_id": "901812441694"
+      },
+      "source": "user",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4779708793226230030",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "status",
+      "parent_id": "901812441694",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4779708793209452813",
+      "type": 1,
+      "date": "1760688984383",
+      "field": "task_creation",
+      "parent_id": "901812441694",
+      "data": {
+        "via": "user",
+        "trace_id": "14746539573207759633",
+        "subcategory_id": "901812441694"
+      },
+      "source": "user",
+      "user": {
+        "id": 101536042,
+        "username": "Hoàng Thiện Nguyễn",
+        "email": "thien.nh@charm.contact",
+        "color": "#536cfe",
+        "initials": "HN",
+        "profilePicture": null,
+        "role": 3,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskDeleted",
+  "history_items": [],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "0ca4e420-cf04-410e-a22c-e4dff128dcb8"
+}
+
+==================================================
+
+{
+  "event": "taskDeleted",
+  "history_items": [],
+  "task_id": "86ev6mf8a",
+  "team_id": "90181891084",
+  "webhook_id": "219e702d-ac47-47fb-997d-014ae9047317"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4780035394468015854",
+      "type": 1,
+      "date": "1760708451322",
+      "field": "due_date",
+      "parent_id": "901812414647",
+      "data": {
+        "due_date_time": false,
+        "old_due_date_time": false
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": "1760907600000"
+    },
+    {
+      "id": "4780035394535124719",
+      "type": 1,
+      "date": "1760708451283",
+      "field": "duration",
+      "parent_id": "901812414647",
+      "data": {},
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6qkj7",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4780035506539818769",
+      "type": 1,
+      "date": "1760708458014",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "3511898081769465725",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4780035506539818770",
+      "type": 1,
+      "date": "1760708458014",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6qvee",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4780038297480034318",
+      "type": 1,
+      "date": "1760708624367",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "10655074764048687095",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4780038297480034319",
+      "type": 1,
+      "date": "1760708624367",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6qw64",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4780039419238251401",
+      "type": 1,
+      "date": "1760708691229",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "11872315597919961300",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4780039419238251402",
+      "type": 1,
+      "date": "1760708691229",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6qwhr",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4780043705397495499",
+      "type": 1,
+      "date": "1760708946703",
+      "field": "status",
+      "parent_id": "901812414647",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "à faire",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    },
+    {
+      "id": "4780043705380718282",
+      "type": 1,
+      "date": "1760708946703",
+      "field": "task_creation",
+      "parent_id": "901812414647",
+      "data": {
+        "via": "user",
+        "trace_id": "16919839570045431104",
+        "subcategory_id": "901812414647"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    }
+  ],
+  "task_id": "86ev6qxkm",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4780043903821629321",
+      "type": 1,
+      "date": "1760708958499",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev6kyn1",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4780044757916141838",
+      "type": 1,
+      "date": "1760709009439",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "3155381186214728915",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4780044757916141839",
+      "type": 1,
+      "date": "1760709009439",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6qxyj",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4780045885479275732",
+      "type": 1,
+      "date": "1760709076623",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev6qxyj",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4780047663931282217",
+      "type": 1,
+      "date": "1760709182617",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev6khwe",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4780047944731546512",
+      "type": 1,
+      "date": "1760709199388",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "15255776717810331254",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4780047944731546513",
+      "type": 1,
+      "date": "1760709199388",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6qyrj",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4780053708795768553",
+      "type": 1,
+      "date": "1760709542953",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "755128242643603626",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4780053708795768554",
+      "type": 1,
+      "date": "1760709542953",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6r0hj",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4780053931882409989",
+      "type": 1,
+      "date": "1760709556211",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev6r0hj",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskCreated",
+  "history_items": [
+    {
+      "id": "4780054418371342727",
+      "type": 1,
+      "date": "1760709585247",
+      "field": "task_creation",
+      "parent_id": "901812388988",
+      "data": {
+        "via": "user",
+        "trace_id": "6241821212752131158",
+        "subcategory_id": "901812388988"
+      },
+      "source": "user",
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": null,
+      "after": null
+    },
+    {
+      "id": "4780054418371342728",
+      "type": 1,
+      "date": "1760709585247",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "open"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": null,
+        "color": "#000000",
+        "type": "removed",
+        "orderindex": -1
+      },
+      "after": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      }
+    }
+  ],
+  "task_id": "86ev6r0re",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4780104529667389389",
+      "type": 1,
+      "date": "1760712572076",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev68amp",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+
+{
+  "event": "taskUpdated",
+  "history_items": [
+    {
+      "id": "4780296433839333830",
+      "type": 1,
+      "date": "1760724010466",
+      "field": "status",
+      "parent_id": "901812388988",
+      "data": {
+        "status_type": "closed"
+      },
+      "source": null,
+      "user": {
+        "id": 294794940,
+        "username": "Trọng Phú lê",
+        "email": "phu.lt@charm.contact",
+        "color": "#595d66",
+        "initials": "TL",
+        "profilePicture": null,
+        "role": 2,
+        "role_subtype": 0
+      },
+      "before": {
+        "status": "to do",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+      },
+      "after": {
+        "status": "completed",
+        "color": "#008844",
+        "orderindex": 2,
+        "type": "closed"
+      }
+    }
+  ],
+  "task_id": "86ev6kayz",
+  "team_id": "90181891084",
+  "webhook_id": "b488c03b-1370-4449-9d54-4fb9b75e244d"
+}
+
+==================================================
+

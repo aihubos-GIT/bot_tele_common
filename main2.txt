@@ -1,0 +1,568 @@
+from flask import Flask, request
+import requests
+import datetime
+import json
+
+app = Flask(__name__)
+
+# === CONFIG ===
+BOT_TOKEN = "7743481184:AAG7mt4MYz4XBGb1-SeHd0nLMy2TM6OVxys"
+CHAT_ID = "-1003065878488"
+CLICKUP_API_TOKEN = "pk_294795597_EONVXPYTADMLTDWZPKQJZZL59R88Q8BI"
+
+TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+# === HÀM GỬI TELEGRAM ===
+def send_message(text):
+    payload = {
+        "chat_id": CHAT_ID,
+        "text": text,
+        "parse_mode": "HTML"
+    }
+    res = requests.post(TELEGRAM_API, json=payload)
+    return res.status_code
+
+# === HÀM LẤY THÔNG TIN TỪ CLICKUP API ===
+def get_task_info(task_id):
+    """Lấy thông tin chi tiết task từ ClickUp API"""
+    url = f"https://api.clickup.com/api/v2/task/{task_id}"
+    headers = {"Authorization": CLICKUP_API_TOKEN}
+    
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        return None
+    except:
+        return None
+
+def get_space_info(space_id):
+    """Lấy thông tin Space/Project"""
+    url = f"https://api.clickup.com/api/v2/space/{space_id}"
+    headers = {"Authorization": CLICKUP_API_TOKEN}
+    
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        return None
+    except:
+        return None
+
+def get_list_info(list_id):
+    """Lấy thông tin List"""
+    url = f"https://api.clickup.com/api/v2/list/{list_id}"
+    headers = {"Authorization": CLICKUP_API_TOKEN}
+    
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        return None
+    except:
+        return None
+
+def get_folder_info(folder_id):
+    """Lấy thông tin Folder"""
+    url = f"https://api.clickup.com/api/v2/folder/{folder_id}"
+    headers = {"Authorization": CLICKUP_API_TOKEN}
+    
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        return None
+    except:
+        return None
+
+# === HÀM FORMAT THỜI GIAN ===
+def format_timestamp(timestamp):
+    """Chuyển timestamp (ms) sang datetime tiếng Việt"""
+    if not timestamp:
+        return "Không có"
+    try:
+        dt = datetime.datetime.fromtimestamp(int(timestamp) / 1000)
+        return dt.strftime("%H:%M %d/%m/%Y")
+    except:
+        return "Không xác định"
+
+def check_overdue(due_date):
+    """Kiểm tra task có quá hạn không"""
+    if not due_date:
+        return False
+    try:
+        due = datetime.datetime.fromtimestamp(int(due_date) / 1000)
+        now = datetime.datetime.now()
+        return now > due
+    except:
+        return False
+
+# === ROUTE NHẬN WEBHOOK TỪ CLICKUP ===
+@app.route('/clickup', methods=['POST'])
+def clickup_webhook():
+    print("\n========== CLICKUP WEBHOOK ==========")
+    data = request.get_json()
+    
+    # Log data để debug
+    with open('clickup_data.json', 'a', encoding='utf-8') as f:
+        f.write(json.dumps(data, indent=2, ensure_ascii=False))
+        f.write("\n\n" + "="*50 + "\n\n")
+    
+    print("Body:", json.dumps(data, indent=2, ensure_ascii=False))
+    print("=====================================\n")
+    
+    event = data.get("event", "")
+    history_items = data.get("history_items", [])
+    
+    # Thời gian hiện tại
+    now = datetime.datetime.now().strftime("%H:%M:%S %d/%m/%Y")
+    
+    # Lấy thông tin người thực hiện action
+    action_user = "Không rõ"
+    if history_items:
+        first_item = history_items[0]
+        user_info = first_item.get("user", {})
+        if isinstance(user_info, dict):
+            action_user = user_info.get("username", "Không rõ")
+    
+    # === XỬ LÝ SPACE/PROJECT EVENTS ===
+    if "space" in event.lower():
+        space_id = data.get("space_id", "")
+        space_data = get_space_info(space_id) if space_id else None
+        
+        space_name = "Không rõ"
+        if space_data:
+            space_name = space_data.get("name", "Không rõ")
+        
+        if event == "spaceCreated":
+            msg = f"""
+🏢 <b>PROJECT MỚI ĐƯỢC TẠO</b>
+━━━━━━━━━━━━━━━━━━━━
+📁 <b>{space_name}</b>
+👤 Người tạo: <b>{action_user}</b>
+🕒 Tạo lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+        
+        elif event == "spaceUpdated":
+            msg = f"""
+🔄 <b>CẬP NHẬT PROJECT</b>
+━━━━━━━━━━━━━━━━━━━━
+📁 <b>{space_name}</b>
+👤 Người cập nhật: <b>{action_user}</b>
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+        
+        elif event == "spaceDeleted":
+            msg = f"""
+🗑️ <b>XÓA PROJECT</b>
+━━━━━━━━━━━━━━━━━━━━
+📁 <b>{space_name}</b>
+👤 Người xóa: <b>{action_user}</b>
+🕒 Xóa lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+    
+    # === XỬ LÝ FOLDER EVENTS ===
+    elif "folder" in event.lower():
+        folder_id = data.get("folder_id", "")
+        folder_data = get_folder_info(folder_id) if folder_id else None
+        
+        folder_name = "Không rõ"
+        if folder_data:
+            folder_name = folder_data.get("name", "Không rõ")
+        
+        if event == "folderCreated":
+            msg = f"""
+📂 <b>FOLDER MỚI ĐƯỢC TẠO</b>
+━━━━━━━━━━━━━━━━━━━━
+📁 <b>{folder_name}</b>
+👤 Người tạo: <b>{action_user}</b>
+🕒 Tạo lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+        
+        elif event == "folderUpdated":
+            msg = f"""
+🔄 <b>CẬP NHẬT FOLDER</b>
+━━━━━━━━━━━━━━━━━━━━
+📁 <b>{folder_name}</b>
+👤 Người cập nhật: <b>{action_user}</b>
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+        
+        elif event == "folderDeleted":
+            msg = f"""
+🗑️ <b>XÓA FOLDER</b>
+━━━━━━━━━━━━━━━━━━━━
+📁 <b>{folder_name}</b>
+👤 Người xóa: <b>{action_user}</b>
+🕒 Xóa lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+    
+    # === XỬ LÝ LIST EVENTS ===
+    elif "list" in event.lower():
+        list_id = data.get("list_id", "")
+        list_data = get_list_info(list_id) if list_id else None
+        
+        list_name = "Không rõ"
+        if list_data:
+            list_name = list_data.get("name", "Không rõ")
+        
+        if event == "listCreated":
+            msg = f"""
+📝 <b>LIST MỚI ĐƯỢC TẠO</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{list_name}</b>
+👤 Người tạo: <b>{action_user}</b>
+🕒 Tạo lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+        
+        elif event == "listUpdated":
+            msg = f"""
+🔄 <b>CẬP NHẬT LIST</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{list_name}</b>
+👤 Người cập nhật: <b>{action_user}</b>
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+        
+        elif event == "listDeleted":
+            msg = f"""
+🗑️ <b>XÓA LIST</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{list_name}</b>
+👤 Người xóa: <b>{action_user}</b>
+🕒 Xóa lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+    
+    # === XỬ LÝ TASK EVENTS ===
+    elif "task" in event.lower():
+        task_id = data.get("task_id", "")
+        
+        # Lấy thông tin task từ API
+        task_data = get_task_info(task_id)
+        
+        if not task_data:
+            print("Không lấy được thông tin task từ API")
+            return {"ok": True}, 200
+        
+        # Parse thông tin task
+        task_name = task_data.get("name", "Không rõ")
+        task_url = task_data.get("url", "")
+        
+        # Status
+        status_info = task_data.get("status", {})
+        status = status_info.get("status", "Không rõ") if isinstance(status_info, dict) else "Không rõ"
+        
+        # Creator (người tạo task)
+        creator = task_data.get("creator", {})
+        creator_name = creator.get("username", "Không rõ") if isinstance(creator, dict) else "Không rõ"
+        
+        # Assignees (người được phân công)
+        assignees = task_data.get("assignees", [])
+        if assignees:
+            assignees_list = [a.get("username", "N/A") for a in assignees]
+            assignees_text = ", ".join(assignees_list)
+        else:
+            assignees_text = "Chưa phân công"
+        
+        # Priority
+        priority = task_data.get("priority")
+        priority_text = "Không có"
+        if priority:
+            priority_map = {
+                1: "🔴 Khẩn cấp",
+                2: "🟠 Cao",
+                3: "🟡 Bình thường",
+                4: "🔵 Thấp"
+            }
+            if isinstance(priority, dict):
+                priority_text = priority_map.get(priority.get("priority"), "Không có")
+        
+        # Due date
+        due_date = task_data.get("due_date")
+        due_date_text = "Không có"
+        is_overdue = False
+        if due_date:
+            due_date_text = format_timestamp(due_date)
+            is_overdue = check_overdue(due_date)
+        
+        # Date created
+        date_created = task_data.get("date_created")
+        created_time = format_timestamp(date_created)
+        
+        # 1. TASK MỚI ĐƯỢC TẠO
+        if event == "taskCreated":
+            overdue_warning = ""
+            if is_overdue:
+                overdue_warning = "\n⚠️ <b>CẢNH BÁO: ĐÃ QUÁ HẠN!</b>"
+            
+            msg = f"""
+🆕 <b>TASK MỚI ĐƯỢC TẠO</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+👤 Người tạo: <b>{creator_name}</b>
+👥 Phân công: <b>{assignees_text}</b>
+⚡ Mức độ: {priority_text}
+📅 Deadline: {due_date_text}{overdue_warning}
+🕒 Tạo lúc: {created_time}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+            send_message(msg.strip())
+        
+        # 2. TASK CẬP NHẬT
+        elif event == "taskUpdated":
+            # Check các loại cập nhật
+            for item in history_items:
+                field = item.get("field", "")
+                
+                # A. Status thay đổi
+                if field == "status":
+                    before = item.get("before", {})
+                    after = item.get("after", {})
+                    
+                    old_status = before.get("status", "Không rõ") if isinstance(before, dict) else "Không rõ"
+                    new_status = after.get("status", "Không rõ") if isinstance(after, dict) else "Không rõ"
+                    
+                    # Check nếu chuyển sang completed/closed
+                    if new_status.lower() in ["complete", "completed", "closed", "done"]:
+                        # Tính toán thời gian hoàn thành so với deadline
+                        completion_status = ""
+                        time_diff_msg = ""
+                        
+                        if due_date:
+                            try:
+                                due_datetime = datetime.datetime.fromtimestamp(int(due_date) / 1000)
+                                now_datetime = datetime.datetime.now()
+                                time_diff = due_datetime - now_datetime
+                                
+                                # Tính số giờ chênh lệch
+                                hours_diff = time_diff.total_seconds() / 3600
+                                days_diff = time_diff.days
+                                
+                                if hours_diff < 0:
+                                    # Hoàn thành SAU deadline (trễ)
+                                    abs_hours = abs(hours_diff)
+                                    if abs_hours < 24:
+                                        time_diff_msg = f"\n⏰ Trễ deadline: <b>{int(abs_hours)} giờ {int((abs_hours % 1) * 60)} phút</b>"
+                                    else:
+                                        time_diff_msg = f"\n⏰ Trễ deadline: <b>{abs(days_diff)} ngày</b>"
+                                    completion_status = "\n🔴 <b>TRẠNG THÁI: TRỄ DEADLINE</b>"
+                                elif hours_diff >= 24:
+                                    # Hoàn thành sớm hơn 24h (vượt tiến độ)
+                                    if days_diff >= 1:
+                                        time_diff_msg = f"\n⚡ Hoàn thành sớm: <b>{days_diff} ngày</b>"
+                                    else:
+                                        time_diff_msg = f"\n⚡ Hoàn thành sớm: <b>{int(hours_diff)} giờ</b>"
+                                    completion_status = "\n🌟 <b>VƯỢT TIẾN ĐỘ! XUẤT SẮC!</b> 🎉"
+                                else:
+                                    # Hoàn thành trong vòng 24h trước deadline (đúng tiến độ)
+                                    time_diff_msg = f"\n⏰ Còn {int(hours_diff)} giờ {int((hours_diff % 1) * 60)} phút đến deadline"
+                                    completion_status = "\n✅ <b>HOÀN THÀNH ĐÚNG TIẾN ĐỘ!</b> 👏"
+                            except:
+                                pass
+                        else:
+                            completion_status = "\n✅ <b>HOÀN THÀNH!</b>"
+                        
+                        # Thời gian tạo task
+                        time_to_complete = ""
+                        if date_created:
+                            try:
+                                created_dt = datetime.datetime.fromtimestamp(int(date_created) / 1000)
+                                now_dt = datetime.datetime.now()
+                                duration = now_dt - created_dt
+                                
+                                if duration.days > 0:
+                                    time_to_complete = f"\n⏱️ Thời gian làm: <b>{duration.days} ngày {duration.seconds // 3600} giờ</b>"
+                                else:
+                                    hours = duration.seconds // 3600
+                                    minutes = (duration.seconds % 3600) // 60
+                                    time_to_complete = f"\n⏱️ Thời gian làm: <b>{hours} giờ {minutes} phút</b>"
+                            except:
+                                pass
+                        
+                        msg = f"""
+✅ <b>TASK HOÀN THÀNH</b>{completion_status}
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+👤 Người hoàn thành: <b>{action_user}</b>
+👥 Đã phân công cho: <b>{assignees_text}</b>
+⚡ Mức độ: {priority_text}
+📅 Deadline: {due_date_text}{time_diff_msg}{time_to_complete}
+🕒 Hoàn thành lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+                        send_message(msg.strip())
+                    
+                    # Thông báo chuyển status khác
+                    else:
+                        msg = f"""
+🔄 <b>THAY ĐỔI TRẠNG THÁI</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+👤 Người thay đổi: <b>{action_user}</b>
+📌 Từ: {old_status} → <b>{new_status}</b>
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+                        send_message(msg.strip())
+                
+                # B. Assignee thêm mới
+                elif field == "assignee_add":
+                    after = item.get("after", {})
+                    new_assignee = after.get("username", "Không rõ") if isinstance(after, dict) else "Không rõ"
+                    
+                    overdue_warning = ""
+                    if is_overdue:
+                        overdue_warning = "\n⚠️ <b>Task đã quá hạn!</b>"
+                    
+                    msg = f"""
+👤 <b>PHÂN CÔNG TASK</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+➕ Được giao cho: <b>{new_assignee}</b>
+📅 Deadline: {due_date_text}{overdue_warning}
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+                    send_message(msg.strip())
+                
+                # C. Assignee bị xóa
+                elif field == "assignee_rem":
+                    before = item.get("before", {})
+                    removed_assignee = before.get("username", "Không rõ") if isinstance(before, dict) else "Không rõ"
+                    
+                    msg = f"""
+👤 <b>XÓA PHÂN CÔNG</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+➖ Đã xóa: <b>{removed_assignee}</b>
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+                    send_message(msg.strip())
+                
+                # D. Due date thay đổi
+                elif field == "due_date":
+                    after = item.get("after", {})
+                    new_due = format_timestamp(after) if after else "Không có"
+                    
+                    msg = f"""
+📅 <b>THAY ĐỔI DEADLINE</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+👤 Người thay đổi: <b>{action_user}</b>
+📅 Deadline mới: <b>{new_due}</b>
+👥 Phụ trách: {assignees_text}
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+                    send_message(msg.strip())
+                
+                # E. Tên task thay đổi
+                elif field == "name":
+                    before_name = item.get("before", "Không rõ")
+                    after_name = item.get("after", "Không rõ")
+                    
+                    msg = f"""
+✏️ <b>ĐỔI TÊN TASK</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 Từ: <b>{before_name}</b>
+➡️ Thành: <b>{after_name}</b>
+👤 Người đổi: <b>{action_user}</b>
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+                    send_message(msg.strip())
+            
+            # Check task quá hạn (chỉ khi task chưa hoàn thành)
+            if is_overdue and status.lower() not in ["complete", "completed", "closed", "done"]:
+                msg = f"""
+⚠️ <b>CẢNH BÁO: TASK QUÁ HẠN!</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+👥 Người phụ trách: <b>{assignees_text}</b>
+📅 Deadline: {due_date_text}
+⏰ <b>ĐÃ QUÁ HẠN!</b>
+📌 Trạng thái: {status}
+🕒 Kiểm tra lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem ngay</a>
+"""
+                send_message(msg.strip())
+        
+        # 3. TASK BỊ XÓA
+        elif event == "taskDeleted":
+            msg = f"""
+🗑️ <b>TASK ĐÃ BỊ XÓA</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+👤 Người xóa: <b>{action_user}</b>
+👥 Đã phân công cho: {assignees_text}
+🕒 Xóa lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+"""
+            send_message(msg.strip())
+        
+        # 4. COMMENT MỚI
+        elif event == "taskCommentPosted":
+            comment_text = "Không có nội dung"
+            for item in history_items:
+                if item.get("field") == "comment":
+                    comment_data = item.get("comment", {})
+                    if isinstance(comment_data, dict):
+                        comment_text = comment_data.get("text_content", "Không có nội dung")
+                    break
+            
+            # Cắt comment nếu quá dài
+            if len(comment_text) > 200:
+                comment_text = comment_text[:200] + "..."
+            
+            msg = f"""
+💬 <b>COMMENT MỚI</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 Task: <b>{task_name}</b>
+👤 Người comment: <b>{action_user}</b>
+💭 Nội dung: {comment_text}
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+            send_message(msg.strip())
+    
+    return {"ok": True}, 200
+
+@app.route('/', methods=['GET'])
+def home():
+    return "✅ ClickUp ↔ Telegram bot đang hoạt động!", 200
+
+@app.route('/test', methods=['GET'])
+def test():
+    send_message("🧪 Test message từ ClickUp bot!")
+    return "Message sent!", 200
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5000, debug=True)
