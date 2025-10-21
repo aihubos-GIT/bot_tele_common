@@ -1,7 +1,7 @@
 import requests
 import json
 
-BOT_TOKEN = "pk_294795597_OJ9QUW50XMB73LF6UO0EEZFO4EP7JDZR"
+BOT_TOKEN = "7743481184:AAG7mt4MYz4XBGb1-SeHd0nLMy2TM6OVxys"
 NGROK_URL = input("📡 Nhập ngrok URL (vd: https://xxxx-xxxx.ngrok-free.dev): ").strip()
 
 # Setup webhook cho Telegram
