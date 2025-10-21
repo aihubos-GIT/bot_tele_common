@@ -14,10 +14,18 @@ app = Flask(__name__)
 
 # Configuration
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-CHAT_ID = os.getenv("CHAT_ID")
+CHAT_ID = os.getenv("CHAT_ID")  # Default chat ID
 CLICKUP_API_TOKEN = os.getenv("CLICKUP_API_TOKEN")
 CLICKUP_TEAM_ID = os.getenv("CLICKUP_TEAM_ID")
 CLICKUP_LIST_ID = os.getenv("CLICKUP_LIST_ID")
+
+# Mapping tags to chat IDs
+TAG_TO_CHAT_ID = {
+    "content": "-1003036322284",  # AIHUBOS - CONTENT TEAM
+    "dev": "-1002896048137",      # AIHUBOS - DEV TEAM
+    "admin": "-1003086591861",    # AIHUBOS - ADMIN
+    "default": os.getenv("CHAT_ID")  # Default chat
+}
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 GOOGLE_CREDENTIALS = os.getenv("GOOGLE_CREDENTIALS_JSON")
@@ -28,7 +36,10 @@ VN_TZ = pytz.timezone('Asia/Ho_Chi_Minh')
 print("="*50)
 print("🔍 KIỂM TRA CONFIG:")
 print(f"BOT_TOKEN: {BOT_TOKEN[:20]}..." if BOT_TOKEN else "BOT_TOKEN: ❌ KHÔNG CÓ")
-print(f"CHAT_ID: {CHAT_ID}" if CHAT_ID else "CHAT_ID: ❌ KHÔNG CÓ")
+print(f"DEFAULT CHAT_ID: {CHAT_ID}" if CHAT_ID else "CHAT_ID: ❌ KHÔNG CÓ")
+print(f"CONTENT TEAM CHAT_ID: {TAG_TO_CHAT_ID['content']}")
+print(f"DEV TEAM CHAT_ID: {TAG_TO_CHAT_ID['dev']}")
+print(f"ADMIN CHAT_ID: {TAG_TO_CHAT_ID['admin']}")
 print(f"CLICKUP_API_TOKEN: {CLICKUP_API_TOKEN[:20]}..." if CLICKUP_API_TOKEN else "CLICKUP_API_TOKEN: ❌ KHÔNG CÓ")
 print(f"CLICKUP_TEAM_ID: {CLICKUP_TEAM_ID}")
 print(f"CLICKUP_LIST_ID: {CLICKUP_LIST_ID}" if CLICKUP_LIST_ID else "CLICKUP_LIST_ID: ❌ KHÔNG CÓ")
@@ -87,6 +98,32 @@ def calculate_duration(start_timestamp):
         return ""
 
 
+def get_chat_id_from_tags(tags):
+    """
+    Xác định chat_id dựa trên tags của task
+    Ưu tiên: content > dev > admin > default
+    """
+    if not tags:
+        return TAG_TO_CHAT_ID["default"]
+    
+    tag_names = [tag.get("name", "").lower() for tag in tags if isinstance(tag, dict)]
+    
+    # Check theo thứ tự ưu tiên
+    for tag_name in tag_names:
+        if "content" in tag_name:
+            print(f"📌 Detected CONTENT tag: {tag_name}")
+            return TAG_TO_CHAT_ID["content"]
+        elif "dev" in tag_name or "developer" in tag_name:
+            print(f"📌 Detected DEV tag: {tag_name}")
+            return TAG_TO_CHAT_ID["dev"]
+        elif "admin" in tag_name:
+            print(f"📌 Detected ADMIN tag: {tag_name}")
+            return TAG_TO_CHAT_ID["admin"]
+    
+    print(f"📌 No matching tag found, using default chat")
+    return TAG_TO_CHAT_ID["default"]
+
+
 def send_message(text, chat_id=None):
     if chat_id is None:
         chat_id = CHAT_ID
@@ -98,11 +135,17 @@ def send_message(text, chat_id=None):
     }
     try:
         res = requests.post(TELEGRAM_API, json=payload, timeout=10)
-        print(f"✅ Message sent (status: {res.status_code})")
+        print(f"✅ Message sent to {chat_id} (status: {res.status_code})")
         return res.status_code
     except Exception as e:
         print(f"❌ Error sending message: {e}")
         return None
+
+
+def send_to_multiple_chats(text, chat_ids):
+    """Gửi tin nhắn đến nhiều group chat"""
+    for chat_id in chat_ids:
+        send_message(text, chat_id)
 
 
 def get_task_info(task_id):
@@ -511,11 +554,15 @@ def telegram_handler():
         
         if text == "/report_eod":
             msg = generate_report("evening")
-            send_message(msg)
+            # Gửi đến tất cả các group
+            all_chat_ids = list(TAG_TO_CHAT_ID.values())
+            send_to_multiple_chats(msg, all_chat_ids)
         
         elif text == "/report_now":
             msg = generate_report("daily")
-            send_message(msg)
+            # Gửi đến tất cả các group
+            all_chat_ids = list(TAG_TO_CHAT_ID.values())
+            send_to_multiple_chats(msg, all_chat_ids)
     
     return {"ok": True}, 200
 
@@ -542,6 +589,13 @@ def clickup_webhook():
     
     if not task_data:
         return {"ok": True}, 200
+    
+    # Lấy tags từ task để xác định chat_id
+    tags = task_data.get("tags", [])
+    target_chat_id = get_chat_id_from_tags(tags)
+    
+    print(f"📍 Target chat ID: {target_chat_id}")
+    print(f"🏷️ Tags: {[tag.get('name') for tag in tags if isinstance(tag, dict)]}")
     
     task_name = task_data.get("name", "Không rõ")
     task_url = task_data.get("url", "")
@@ -598,7 +652,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-        send_message(msg.strip())
+        send_message(msg.strip(), target_chat_id)
     
     elif event == "taskUpdated":
         for item in history_items:
@@ -663,7 +717,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                    send_message(msg.strip())
+                    send_message(msg.strip(), target_chat_id)
                     
                     duration_str = calculate_duration(date_created) if date_created else ""
                     on_time_status = "Không xác định"
@@ -700,7 +754,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                    send_message(msg.strip())
+                    send_message(msg.strip(), target_chat_id)
             
             elif field == "assignee_add":
                 after = item.get("after", {})
@@ -721,7 +775,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                send_message(msg.strip())
+                send_message(msg.strip(), target_chat_id)
             
             elif field == "assignee_rem":
                 before = item.get("before", {})
@@ -737,7 +791,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                send_message(msg.strip())
+                send_message(msg.strip(), target_chat_id)
             
             elif field == "due_date":
                 after = item.get("after", {})
@@ -755,7 +809,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                send_message(msg.strip())
+                send_message(msg.strip(), target_chat_id)
         
         if is_overdue and status.lower() not in ["complete", "completed", "closed", "done", "achevé"]:
             msg = f"""
@@ -771,7 +825,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem ngay</a>
 """
-            send_message(msg.strip())
+            send_message(msg.strip(), target_chat_id)
     
     elif event == "taskDeleted":
         msg = f"""
@@ -784,7 +838,7 @@ def clickup_webhook():
 🕒 Xóa lúc: {now}
 ━━━━━━━━━━━━━━━━━━━━
 """
-        send_message(msg.strip())
+        send_message(msg.strip(), target_chat_id)
     
     elif event == "taskCommentPosted":
         comment_text = "Không có nội dung"
@@ -809,7 +863,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-        send_message(msg.strip())
+        send_message(msg.strip(), target_chat_id)
     
     return {"ok": True}, 200
 
@@ -827,7 +881,9 @@ def trigger_morning_report():
     print(f"\n🌅 Morning report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("morning")
-        send_message(msg)
+        # Gửi đến tất cả các group
+        all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
+        send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
     except Exception as e:
         print(f"❌ Error: {e}")
@@ -842,7 +898,9 @@ def trigger_noon_report():
     print(f"\n☀️ Noon report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("noon")
-        send_message(msg)
+        # Gửi đến tất cả các group
+        all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
+        send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
     except Exception as e:
         print(f"❌ Error: {e}")
@@ -857,7 +915,9 @@ def trigger_evening_report():
     print(f"\n🌙 Evening report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("evening")
-        send_message(msg)
+        # Gửi đến tất cả các group
+        all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
+        send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
     except Exception as e:
         print(f"❌ Error: {e}")
