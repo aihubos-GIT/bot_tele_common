@@ -1,7 +1,7 @@
 import requests
 import json
 
-API_TOKEN = "pk_294795597_OJ9QUW50XMB73LF6UO0EEZFO4EP7JDZR"
+API_TOKEN = "pk_294795597_NFG5465HSDK4PA15VNVUIZC3GIABQ049"
 TEAM_ID = "90181891084"
 
 # Webhook IDs cần xóa (từ output bạn vừa gửi)
