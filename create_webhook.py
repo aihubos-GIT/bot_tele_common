@@ -1,7 +1,7 @@
 import requests
 import json
 
-API_TOKEN = "pk_294795597_OJ9QUW50XMB73LF6UO0EEZFO4EP7JDZR"
+API_TOKEN = "pk_294795597_DAN4M49RQ8WM581E1VFDTLABRCPYILXS"
 TEAM_ID = "90181891084"
 NGROK_URL = "https://suellen-overhomely-destinee.ngrok-free.dev"
 
