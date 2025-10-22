@@ -49,7 +49,7 @@ print(f"⏰ Server timezone: {datetime.datetime.now(VN_TZ).strftime('%H:%M:%S %d
 print("="*50)
 
 TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-WEBHOOK_URL = f"https://bot-tele-7jxc.onrender.com"
+WEBHOOK_URL = f"https://bot-tele-common.onrender.com"
 
 
 def get_vn_now():
