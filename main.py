@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import requests
 import datetime
 import json
@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import pytz
 import gspread
 from google.oauth2.service_account import Credentials
+import tempfile
 
 load_dotenv()
 
@@ -18,6 +19,10 @@ CHAT_ID = os.getenv("CHAT_ID")  # Default chat ID
 CLICKUP_API_TOKEN = os.getenv("CLICKUP_API_TOKEN")
 CLICKUP_TEAM_ID = os.getenv("CLICKUP_TEAM_ID")
 CLICKUP_LIST_ID = os.getenv("CLICKUP_LIST_ID")
+
+# RenderAPI Configuration
+RENDER_API_URL = os.getenv("RENDER_API_URL", "https://render-api-33ry.onrender.com")
+RENDER_API_KEY = os.getenv("RENDER_API_KEY", "")
 
 # Mapping tags to chat IDs
 TAG_TO_CHAT_ID = {
@@ -45,6 +50,8 @@ print(f"CLICKUP_TEAM_ID: {CLICKUP_TEAM_ID}")
 print(f"CLICKUP_LIST_ID: {CLICKUP_LIST_ID}" if CLICKUP_LIST_ID else "CLICKUP_LIST_ID: ❌ KHÔNG CÓ")
 print(f"GOOGLE_SHEET_ID: {SHEET_ID}" if SHEET_ID else "GOOGLE_SHEET_ID: ❌ KHÔNG CÓ")
 print(f"GOOGLE_CREDENTIALS: {'✅ CÓ (' + str(len(GOOGLE_CREDENTIALS)) + ' chars)' if GOOGLE_CREDENTIALS else '❌ KHÔNG CÓ'}")
+print(f"RENDER_API_URL: {RENDER_API_URL}" if RENDER_API_URL else "RENDER_API_URL: ❌ KHÔNG CÓ")
+print(f"RENDER_API_KEY: {'✅ CÓ (' + str(len(RENDER_API_KEY)) + ' chars)' if RENDER_API_KEY else '❌ KHÔNG CÓ'}")
 print(f"⏰ Server timezone: {datetime.datetime.now(VN_TZ).strftime('%H:%M:%S %d/%m/%Y')}")
 print("="*50)
 
@@ -544,6 +551,421 @@ def generate_report(report_type="daily"):
     return msg
 
 
+def generate_weekly_report_html(week_stats, start_date, end_date):
+    """
+    Tạo HTML template đẹp cho báo cáo tuần
+    """
+    now = get_vn_now()
+    
+    # Tính KPI
+    kpi = (week_stats['completed'] / week_stats['total'] * 100) if week_stats['total'] > 0 else 0
+    
+    # KPI theo user
+    user_rows = ""
+    if week_stats['by_user']:
+        sorted_users = sorted(
+            week_stats['by_user'].items(),
+            key=lambda x: (x[1]['completed'] / x[1]['total'] if x[1]['total'] > 0 else 0),
+            reverse=True
+        )
+        
+        for username, user_stats in sorted_users:
+            user_kpi = (user_stats['completed'] / user_stats['total'] * 100) if user_stats['total'] > 0 else 0
+            
+            if user_kpi >= 90:
+                kpi_class = "excellent"
+                icon = "🌟"
+            elif user_kpi >= 70:
+                kpi_class = "good"
+                icon = "✅"
+            elif user_kpi >= 50:
+                kpi_class = "average"
+                icon = "⚠️"
+            else:
+                kpi_class = "poor"
+                icon = "🔴"
+            
+            user_rows += f"""
+            <tr class="{kpi_class}">
+                <td>{icon} <strong>{username}</strong></td>
+                <td>{user_stats['total']}</td>
+                <td>{user_stats['completed']}</td>
+                <td>{user_stats['pending']}</td>
+                <td>{user_stats.get('in_progress', 0)}</td>
+                <td>{user_stats.get('overdue', 0)}</td>
+                <td class="kpi-cell"><strong>{user_kpi:.1f}%</strong></td>
+            </tr>
+            """
+    
+    html = f"""
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Báo Cáo Tuần - AIHubOS</title>
+        <style>
+            @page {{
+                size: A4;
+                margin: 2cm;
+            }}
+            body {{
+                font-family: 'Segoe UI', Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                max-width: 800px;
+                margin: 0 auto;
+                background: #fff;
+            }}
+            .header {{
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 30px;
+                border-radius: 10px;
+                text-align: center;
+                margin-bottom: 30px;
+            }}
+            .header h1 {{
+                margin: 0;
+                font-size: 32px;
+                font-weight: bold;
+            }}
+            .header .date {{
+                margin-top: 10px;
+                font-size: 16px;
+                opacity: 0.9;
+            }}
+            .summary {{
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                margin-bottom: 30px;
+            }}
+            .summary-card {{
+                background: #f8f9fa;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                border-left: 4px solid #667eea;
+            }}
+            .summary-card.success {{
+                border-left-color: #10b981;
+            }}
+            .summary-card.warning {{
+                border-left-color: #f59e0b;
+            }}
+            .summary-card.danger {{
+                border-left-color: #ef4444;
+            }}
+            .summary-card h3 {{
+                margin: 0 0 10px 0;
+                font-size: 14px;
+                color: #666;
+                text-transform: uppercase;
+            }}
+            .summary-card .value {{
+                font-size: 36px;
+                font-weight: bold;
+                color: #333;
+            }}
+            .summary-card .label {{
+                font-size: 12px;
+                color: #999;
+                margin-top: 5px;
+            }}
+            .kpi-chart {{
+                background: #f8f9fa;
+                padding: 20px;
+                border-radius: 8px;
+                margin-bottom: 30px;
+            }}
+            .kpi-bar {{
+                background: #e5e7eb;
+                height: 40px;
+                border-radius: 20px;
+                overflow: hidden;
+                position: relative;
+            }}
+            .kpi-fill {{
+                height: 100%;
+                background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-weight: bold;
+                font-size: 18px;
+                transition: width 0.3s ease;
+            }}
+            table {{
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 30px;
+                background: white;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }}
+            th {{
+                background: #667eea;
+                color: white;
+                padding: 12px;
+                text-align: left;
+                font-weight: 600;
+            }}
+            td {{
+                padding: 12px;
+                border-bottom: 1px solid #e5e7eb;
+            }}
+            tr:hover {{
+                background: #f9fafb;
+            }}
+            tr.excellent {{
+                background: #d1fae5;
+            }}
+            tr.good {{
+                background: #dbeafe;
+            }}
+            tr.average {{
+                background: #fef3c7;
+            }}
+            tr.poor {{
+                background: #fee2e2;
+            }}
+            .kpi-cell {{
+                font-size: 16px;
+                font-weight: bold;
+            }}
+            .footer {{
+                text-align: center;
+                padding: 20px;
+                color: #999;
+                border-top: 2px solid #e5e7eb;
+                margin-top: 30px;
+            }}
+            .priority-section {{
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+                margin-bottom: 30px;
+            }}
+            .priority-card {{
+                background: white;
+                padding: 15px;
+                border-radius: 8px;
+                text-align: center;
+                border: 2px solid #e5e7eb;
+            }}
+            .priority-card.urgent {{
+                border-color: #ef4444;
+            }}
+            .priority-card.high {{
+                border-color: #f59e0b;
+            }}
+            .priority-card.normal {{
+                border-color: #3b82f6;
+            }}
+            .priority-card.low {{
+                border-color: #10b981;
+            }}
+            .priority-card .icon {{
+                font-size: 24px;
+                margin-bottom: 5px;
+            }}
+            .priority-card .count {{
+                font-size: 28px;
+                font-weight: bold;
+                margin: 5px 0;
+            }}
+            .priority-card .label {{
+                font-size: 12px;
+                color: #666;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>📊 BÁO CÁO TUẦN - AIHubOS</h1>
+            <div class="date">
+                Tuần từ {start_date.strftime('%d/%m/%Y')} đến {end_date.strftime('%d/%m/%Y')}<br>
+                Tạo lúc: {now.strftime('%H:%M:%S %d/%m/%Y')}
+            </div>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card">
+                <h3>Tổng Tasks</h3>
+                <div class="value">{week_stats['total']}</div>
+                <div class="label">Tasks trong tuần</div>
+            </div>
+            <div class="summary-card success">
+                <h3>Hoàn Thành</h3>
+                <div class="value">{week_stats['completed']}</div>
+                <div class="label">{kpi:.1f}% KPI</div>
+            </div>
+            <div class="summary-card warning">
+                <h3>Chưa Xong</h3>
+                <div class="value">{week_stats['pending']}</div>
+                <div class="label">{week_stats.get('in_progress', 0)} đang làm</div>
+            </div>
+        </div>
+
+        <div class="kpi-chart">
+            <h3 style="margin-top: 0;">📈 KPI Tuần</h3>
+            <div class="kpi-bar">
+                <div class="kpi-fill" style="width: {kpi}%">{kpi:.1f}%</div>
+            </div>
+        </div>
+
+        <h3>🎯 Độ Ưu Tiên Tasks</h3>
+        <div class="priority-section">
+            <div class="priority-card urgent">
+                <div class="icon">🔴</div>
+                <div class="count">{week_stats['by_priority'].get('urgent', 0)}</div>
+                <div class="label">Khẩn cấp</div>
+            </div>
+            <div class="priority-card high">
+                <div class="icon">🟠</div>
+                <div class="count">{week_stats['by_priority'].get('high', 0)}</div>
+                <div class="label">Cao</div>
+            </div>
+            <div class="priority-card normal">
+                <div class="icon">🟡</div>
+                <div class="count">{week_stats['by_priority'].get('normal', 0)}</div>
+                <div class="label">Bình thường</div>
+            </div>
+            <div class="priority-card low">
+                <div class="icon">🔵</div>
+                <div class="count">{week_stats['by_priority'].get('low', 0)}</div>
+                <div class="label">Thấp</div>
+            </div>
+        </div>
+
+        <h3>👥 KPI Theo Người</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Người thực hiện</th>
+                    <th>Tổng</th>
+                    <th>Hoàn thành</th>
+                    <th>Còn lại</th>
+                    <th>Đang làm</th>
+                    <th>Quá hạn</th>
+                    <th>KPI</th>
+                </tr>
+            </thead>
+            <tbody>
+                {user_rows}
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p><strong>AIHubOS Automation System v1.3</strong></p>
+            <p>🤖 Báo cáo tự động - Không cần thao tác thủ công</p>
+        </div>
+    </body>
+    </html>
+    """
+    
+    return html
+
+
+def generate_and_send_weekly_pdf():
+    """
+    Tạo báo cáo tuần bằng PDF và gửi lên Telegram
+    """
+    print(f"\n📊 Generating weekly report PDF...")
+    
+    # 1. Lấy dữ liệu tuần
+    now = get_vn_now()
+    days_since_monday = now.weekday()
+    start_of_week = (now - datetime.timedelta(days=days_since_monday)).replace(hour=0, minute=0, second=0, microsecond=0)
+    end_of_week = (start_of_week + datetime.timedelta(days=6)).replace(hour=23, minute=59, second=59, microsecond=999999)
+    
+    week_tasks = get_all_tasks_in_period(start_of_week, end_of_week)
+    
+    if not week_tasks:
+        print("   ⚠️  Không có tasks trong tuần này")
+        return False
+    
+    week_stats = analyze_tasks(week_tasks)
+    print(f"   ✅ Analyzed {len(week_tasks)} tasks")
+    
+    # 2. Tạo HTML report
+    html_content = generate_weekly_report_html(week_stats, start_of_week, end_of_week)
+    print(f"   ✅ Generated HTML report")
+    
+    # 3. Gọi RenderAPI để tạo PDF
+    if not RENDER_API_KEY or not RENDER_API_URL:
+        print("   ❌ RENDER_API_KEY hoặc RENDER_API_URL chưa được config!")
+        return False
+    
+    render_url = f"{RENDER_API_URL}/render"
+    headers = {
+        "Authorization": f"Bearer {RENDER_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    
+    filename = f"weekly_report_{start_of_week.strftime('%Y%m%d')}_{end_of_week.strftime('%Y%m%d')}.pdf"
+    
+    payload = {
+        "html": html_content,
+        "filename": filename
+    }
+    
+    try:
+        print(f"   🔄 Calling RenderAPI...")
+        response = requests.post(render_url, headers=headers, json=payload, timeout=30)
+        
+        if response.status_code == 200:
+            print(f"   ✅ PDF generated successfully")
+            
+            # 4. Lưu PDF tạm
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
+                tmp_file.write(response.content)
+                pdf_path = tmp_file.name
+            
+            # 5. Gửi PDF lên Telegram (tất cả groups)
+            all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
+            
+            for chat_id in all_chat_ids:
+                try:
+                    telegram_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
+                    
+                    with open(pdf_path, 'rb') as pdf_file:
+                        files = {'document': (filename, pdf_file, 'application/pdf')}
+                        data = {
+                            'chat_id': chat_id,
+                            'caption': f'📊 <b>BÁO CÁO TUẦN</b>\n\nTuần: {start_of_week.strftime("%d/%m")} - {end_of_week.strftime("%d/%m/%Y")}\n✅ Hoàn thành: {week_stats["completed"]}/{week_stats["total"]} tasks',
+                            'parse_mode': 'HTML'
+                        }
+                        
+                        tg_response = requests.post(telegram_url, files=files, data=data, timeout=30)
+                        
+                        if tg_response.status_code == 200:
+                            print(f"   ✅ Sent PDF to {chat_id}")
+                        else:
+                            print(f"   ❌ Failed to send to {chat_id}: {tg_response.text}")
+                
+                except Exception as e:
+                    print(f"   ❌ Error sending to {chat_id}: {e}")
+            
+            # 6. Cleanup
+            try:
+                os.unlink(pdf_path)
+            except:
+                pass
+            
+            return True
+            
+        else:
+            print(f"   ❌ RenderAPI error: {response.status_code}")
+            print(f"   Response: {response.text}")
+            return False
+    
+    except Exception as e:
+        print(f"   ❌ Error calling RenderAPI: {e}")
+        return False
+
+
 @app.route('/telegram', methods=['POST'])
 def telegram_handler():
     data = request.get_json()
@@ -922,6 +1344,38 @@ def trigger_evening_report():
     except Exception as e:
         print(f"❌ Error: {e}")
         return 'ER', 500
+
+
+@app.route('/trigger_weekly_report', methods=['GET', 'HEAD'])
+def trigger_weekly_report():
+    """
+    Endpoint để trigger báo cáo tuần với PDF
+    """
+    if request.method == 'HEAD':
+        return '', 200
+    
+    print(f"\n📊 Weekly report triggered at {get_vn_now().strftime('%H:%M:%S')}")
+    
+    try:
+        success = generate_and_send_weekly_pdf()
+        
+        if success:
+            return jsonify({
+                "status": "success",
+                "message": "Weekly report generated and sent successfully"
+            }), 200
+        else:
+            return jsonify({
+                "status": "error",
+                "message": "Failed to generate or send weekly report"
+            }), 500
+    
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
 
 
 @app.route('/setup_webhook', methods=['GET'])
