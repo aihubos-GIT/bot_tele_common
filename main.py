@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 # Configuration
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-CHAT_ID = os.getenv("CHAT_ID")  # Default chat ID
+CHAT_ID = os.getenv("CHAT_ID")
 CLICKUP_API_TOKEN = os.getenv("CLICKUP_API_TOKEN")
 CLICKUP_TEAM_ID = os.getenv("CLICKUP_TEAM_ID")
 CLICKUP_LIST_ID = os.getenv("CLICKUP_LIST_ID")
@@ -26,10 +26,10 @@ RENDER_API_KEY = os.getenv("RENDER_API_KEY", "")
 
 # Mapping tags to chat IDs
 TAG_TO_CHAT_ID = {
-    "content": "-1003036322284",  # AIHUBOS - CONTENT TEAM
-    "dev": "-1002896048137",      # AIHUBOS - DEV TEAM
-    "admin": "-1003086591861",    # AIHUBOS - ADMIN
-    "default": os.getenv("CHAT_ID")  # Default chat
+    "content": "-1003036322284",
+    "dev": "-1002896048137",
+    "admin": "-1003086591861",
+    "default": os.getenv("CHAT_ID")
 }
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -106,16 +106,11 @@ def calculate_duration(start_timestamp):
 
 
 def get_chat_id_from_tags(tags):
-    """
-    Xác định chat_id dựa trên tags của task
-    Ưu tiên: content > dev > admin > default
-    """
     if not tags:
         return TAG_TO_CHAT_ID["default"]
     
     tag_names = [tag.get("name", "").lower() for tag in tags if isinstance(tag, dict)]
     
-    # Check theo thứ tự ưu tiên
     for tag_name in tag_names:
         if "content" in tag_name:
             print(f"📌 Detected CONTENT tag: {tag_name}")
@@ -150,7 +145,6 @@ def send_message(text, chat_id=None):
 
 
 def send_to_multiple_chats(text, chat_ids):
-    """Gửi tin nhắn đến nhiều group chat"""
     for chat_id in chat_ids:
         send_message(text, chat_id)
 
@@ -252,6 +246,9 @@ def get_week_tasks():
 
 
 def analyze_tasks(tasks):
+    """
+    Phân tích tasks theo người được ASSIGN (không phải người tạo)
+    """
     stats = {
         'total': len(tasks),
         'completed': 0,
@@ -480,7 +477,7 @@ def generate_report(report_type="daily"):
             msg += f"\n❓ <b>Chưa phân công:</b> {stats['unassigned']}"
         
         if stats['by_user']:
-            msg += f"\n\n👥 <b>KPI theo người:</b>"
+            msg += f"\n\n👥 <b>KPI theo người được giao việc:</b>"
             
             sorted_users = sorted(
                 stats['by_user'].items(), 
@@ -552,15 +549,10 @@ def generate_report(report_type="daily"):
 
 
 def generate_weekly_report_html(week_stats, start_date, end_date):
-    """
-    Tạo HTML template đẹp cho báo cáo tuần
-    """
     now = get_vn_now()
     
-    # Tính KPI
     kpi = (week_stats['completed'] / week_stats['total'] * 100) if week_stats['total'] > 0 else 0
     
-    # KPI theo user
     user_rows = ""
     if week_stats['by_user']:
         sorted_users = sorted(
@@ -839,7 +831,7 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
             </div>
         </div>
 
-        <h3>👥 KPI Theo Người</h3>
+        <h3>👥 KPI Theo Người Được Giao Việc</h3>
         <table>
             <thead>
                 <tr>
@@ -869,12 +861,8 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
 
 
 def generate_and_send_weekly_pdf():
-    """
-    Tạo báo cáo tuần bằng PDF và gửi lên Telegram
-    """
     print(f"\n📊 Generating weekly report PDF...")
     
-    # 1. Lấy dữ liệu tuần
     now = get_vn_now()
     days_since_monday = now.weekday()
     start_of_week = (now - datetime.timedelta(days=days_since_monday)).replace(hour=0, minute=0, second=0, microsecond=0)
@@ -889,11 +877,9 @@ def generate_and_send_weekly_pdf():
     week_stats = analyze_tasks(week_tasks)
     print(f"   ✅ Analyzed {len(week_tasks)} tasks")
     
-    # 2. Tạo HTML report
     html_content = generate_weekly_report_html(week_stats, start_of_week, end_of_week)
     print(f"   ✅ Generated HTML report")
     
-    # 3. Gọi RenderAPI để tạo PDF
     if not RENDER_API_KEY or not RENDER_API_URL:
         print("   ❌ RENDER_API_KEY hoặc RENDER_API_URL chưa được config!")
         return False
@@ -918,12 +904,10 @@ def generate_and_send_weekly_pdf():
         if response.status_code == 200:
             print(f"   ✅ PDF generated successfully")
             
-            # 4. Lưu PDF tạm
             with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
                 tmp_file.write(response.content)
                 pdf_path = tmp_file.name
             
-            # 5. Gửi PDF lên Telegram (tất cả groups)
             all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
             
             for chat_id in all_chat_ids:
@@ -948,7 +932,6 @@ def generate_and_send_weekly_pdf():
                 except Exception as e:
                     print(f"   ❌ Error sending to {chat_id}: {e}")
             
-            # 6. Cleanup
             try:
                 os.unlink(pdf_path)
             except:
@@ -976,13 +959,11 @@ def telegram_handler():
         
         if text == "/report_eod":
             msg = generate_report("evening")
-            # Gửi đến tất cả các group
             all_chat_ids = list(TAG_TO_CHAT_ID.values())
             send_to_multiple_chats(msg, all_chat_ids)
         
         elif text == "/report_now":
             msg = generate_report("daily")
-            # Gửi đến tất cả các group
             all_chat_ids = list(TAG_TO_CHAT_ID.values())
             send_to_multiple_chats(msg, all_chat_ids)
     
@@ -1012,7 +993,6 @@ def clickup_webhook():
     if not task_data:
         return {"ok": True}, 200
     
-    # Lấy tags từ task để xác định chat_id
     tags = task_data.get("tags", [])
     target_chat_id = get_chat_id_from_tags(tags)
     
@@ -1303,7 +1283,6 @@ def trigger_morning_report():
     print(f"\n🌅 Morning report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("morning")
-        # Gửi đến tất cả các group
         all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
         send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
@@ -1320,7 +1299,6 @@ def trigger_noon_report():
     print(f"\n☀️ Noon report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("noon")
-        # Gửi đến tất cả các group
         all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
         send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
@@ -1337,7 +1315,6 @@ def trigger_evening_report():
     print(f"\n🌙 Evening report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("evening")
-        # Gửi đến tất cả các group
         all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
         send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
@@ -1348,9 +1325,6 @@ def trigger_evening_report():
 
 @app.route('/trigger_weekly_report', methods=['GET', 'HEAD'])
 def trigger_weekly_report():
-    """
-    Endpoint để trigger báo cáo tuần với PDF
-    """
     if request.method == 'HEAD':
         return '', 200
     
