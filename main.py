@@ -1380,21 +1380,6 @@ def trigger_weekly_report():
             "status": "error",
             "message": str(e)
         }), 500
-
-
-@app.route('/setup_webhook', methods=['GET'])
-def setup_webhook():
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/setWebhook"
-    telegram_webhook = f"{WEBHOOK_URL}/telegram"
-    
-    response = requests.post(url, data={"url": telegram_webhook})
-    result = response.json()
-    
-    if result.get("ok"):
-        return f"✅ Webhook đã được set thành công!<br>URL: {telegram_webhook}<br>Response: {result}", 200
-    else:
-        return f"❌ Lỗi set webhook!<br>Response: {result}", 500
-
 @app.route('/trigger_deadline_warning', methods=['GET', 'HEAD'])
 def trigger_deadline_warning():
     if request.method == 'HEAD':
@@ -1480,6 +1465,21 @@ def trigger_deadline_warning():
     except Exception as e:
         print(f"❌ Error: {e}")
         return 'ER', 500
+
+@app.route('/setup_webhook', methods=['GET'])
+def setup_webhook():
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/setWebhook"
+    telegram_webhook = f"{WEBHOOK_URL}/telegram"
+    
+    response = requests.post(url, data={"url": telegram_webhook})
+    result = response.json()
+    
+    if result.get("ok"):
+        return f"✅ Webhook đã được set thành công!<br>URL: {telegram_webhook}<br>Response: {result}", 200
+    else:
+        return f"❌ Lỗi set webhook!<br>Response: {result}", 500
+
+
 
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 5000))
