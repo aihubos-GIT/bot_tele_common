@@ -599,33 +599,43 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
         <style>
             @page {{
                 size: A4;
-                margin: 2cm;
+                margin: 1.5cm;
             }}
             body {{
-                font-family: 'Segoe UI', Arial, sans-serif;
+                font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
                 line-height: 1.6;
-                color: #333;
-                max-width: 800px;
+                color: #7A3F30;
+                background: #E9D9C5;
+                margin: 0;
+                padding: 20px;
+            }}
+            .container {{
+                max-width: 900px;
                 margin: 0 auto;
-                background: #fff;
+                background: #E9D9C5;
             }}
             .header {{
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                padding: 30px;
-                border-radius: 10px;
+                background: linear-gradient(135deg, #0F1330 0%, #1a1f4d 100%);
+                color: #D4A459;
+                padding: 40px;
+                border-radius: 15px;
                 text-align: center;
                 margin-bottom: 30px;
+                box-shadow: 0 8px 20px rgba(15, 19, 48, 0.3);
             }}
             .header h1 {{
                 margin: 0;
-                font-size: 32px;
-                font-weight: bold;
+                font-size: 36px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             }}
             .header .date {{
-                margin-top: 10px;
+                margin-top: 15px;
                 font-size: 16px;
-                opacity: 0.9;
+                color: #D4A459;
+                opacity: 0.95;
+                font-weight: 500;
             }}
             .summary {{
                 display: grid;
@@ -634,59 +644,67 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
                 margin-bottom: 30px;
             }}
             .summary-card {{
-                background: #f8f9fa;
-                padding: 20px;
-                border-radius: 8px;
+                background: white;
+                padding: 25px;
+                border-radius: 12px;
                 text-align: center;
-                border-left: 4px solid #667eea;
+                box-shadow: 0 4px 15px rgba(122, 63, 48, 0.1);
+                border: 2px solid #D4A459;
+                transition: transform 0.3s ease;
             }}
-            .summary-card.success {{
-                border-left-color: #10b981;
-            }}
-            .summary-card.warning {{
-                border-left-color: #f59e0b;
-            }}
-            .summary-card.danger {{
-                border-left-color: #ef4444;
+            .summary-card:hover {{
+                transform: translateY(-5px);
             }}
             .summary-card h3 {{
-                margin: 0 0 10px 0;
+                margin: 0 0 15px 0;
                 font-size: 14px;
-                color: #666;
+                color: #7A3F30;
                 text-transform: uppercase;
+                letter-spacing: 1px;
+                font-weight: 600;
             }}
             .summary-card .value {{
-                font-size: 36px;
-                font-weight: bold;
-                color: #333;
+                font-size: 42px;
+                font-weight: 700;
+                color: #D4A459;
+                margin-bottom: 8px;
             }}
             .summary-card .label {{
-                font-size: 12px;
-                color: #999;
-                margin-top: 5px;
+                font-size: 13px;
+                color: #7A3F30;
+                opacity: 0.8;
             }}
             .kpi-chart {{
-                background: #f8f9fa;
-                padding: 20px;
-                border-radius: 8px;
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
                 margin-bottom: 30px;
+                box-shadow: 0 4px 15px rgba(122, 63, 48, 0.1);
+                border: 2px solid #D4A459;
+            }}
+            .kpi-chart h3 {{
+                margin-top: 0;
+                color: #7A3F30;
+                font-size: 20px;
+                margin-bottom: 20px;
             }}
             .kpi-bar {{
-                background: #e5e7eb;
-                height: 40px;
-                border-radius: 20px;
+                background: #E9D9C5;
+                height: 50px;
+                border-radius: 25px;
                 overflow: hidden;
                 position: relative;
+                border: 2px solid #D4A459;
             }}
             .kpi-fill {{
                 height: 100%;
-                background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+                background: linear-gradient(90deg, #D4A459 0%, #C3A387 100%);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: white;
-                font-weight: bold;
-                font-size: 18px;
+                color: #0F1330;
+                font-weight: 700;
+                font-size: 20px;
                 transition: width 0.3s ease;
             }}
             table {{
@@ -694,171 +712,183 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
                 border-collapse: collapse;
                 margin-bottom: 30px;
                 background: white;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 15px rgba(122, 63, 48, 0.1);
+                border-radius: 12px;
+                overflow: hidden;
             }}
             th {{
-                background: #667eea;
-                color: white;
-                padding: 12px;
+                background: #0F1330;
+                color: #D4A459;
+                padding: 16px;
                 text-align: left;
                 font-weight: 600;
+                font-size: 14px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
             }}
             td {{
-                padding: 12px;
-                border-bottom: 1px solid #e5e7eb;
+                padding: 14px 16px;
+                border-bottom: 1px solid #E9D9C5;
+                color: #7A3F30;
             }}
             tr:hover {{
-                background: #f9fafb;
+                background: #f9f6f2;
             }}
             tr.excellent {{
-                background: #d1fae5;
+                background: #d4e8d4;
             }}
             tr.good {{
-                background: #dbeafe;
+                background: #dae8f5;
             }}
             tr.average {{
-                background: #fef3c7;
+                background: #fff4d6;
             }}
             tr.poor {{
-                background: #fee2e2;
+                background: #fce4e4;
             }}
             .kpi-cell {{
-                font-size: 16px;
-                font-weight: bold;
+                font-size: 17px;
+                font-weight: 700;
+                color: #D4A459;
             }}
             .footer {{
                 text-align: center;
-                padding: 20px;
-                color: #999;
-                border-top: 2px solid #e5e7eb;
+                padding: 25px;
+                color: #7A3F30;
+                border-top: 3px solid #D4A459;
                 margin-top: 30px;
+                background: white;
+                border-radius: 12px;
+            }}
+            .footer strong {{
+                color: #D4A459;
+                font-size: 18px;
             }}
             .priority-section {{
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
-                gap: 15px;
+                gap: 20px;
                 margin-bottom: 30px;
             }}
             .priority-card {{
                 background: white;
-                padding: 15px;
-                border-radius: 8px;
+                padding: 20px;
+                border-radius: 12px;
                 text-align: center;
-                border: 2px solid #e5e7eb;
-            }}
-            .priority-card.urgent {{
-                border-color: #ef4444;
-            }}
-            .priority-card.high {{
-                border-color: #f59e0b;
-            }}
-            .priority-card.normal {{
-                border-color: #3b82f6;
-            }}
-            .priority-card.low {{
-                border-color: #10b981;
+                border: 2px solid #D4A459;
+                box-shadow: 0 4px 15px rgba(122, 63, 48, 0.1);
             }}
             .priority-card .icon {{
-                font-size: 24px;
-                margin-bottom: 5px;
+                font-size: 28px;
+                margin-bottom: 10px;
             }}
             .priority-card .count {{
-                font-size: 28px;
-                font-weight: bold;
-                margin: 5px 0;
+                font-size: 32px;
+                font-weight: 700;
+                margin: 10px 0;
+                color: #D4A459;
             }}
             .priority-card .label {{
-                font-size: 12px;
-                color: #666;
+                font-size: 13px;
+                color: #7A3F30;
+                font-weight: 600;
+            }}
+            h3 {{
+                color: #7A3F30;
+                font-size: 22px;
+                margin-bottom: 20px;
+                padding-left: 10px;
+                border-left: 4px solid #D4A459;
             }}
         </style>
     </head>
     <body>
-        <div class="header">
-            <h1>📊 BÁO CÁO TUẦN - AIHubOS</h1>
-            <div class="date">
-                Tuần từ {start_date.strftime('%d/%m/%Y')} đến {end_date.strftime('%d/%m/%Y')}<br>
-                Tạo lúc: {now.strftime('%H:%M:%S %d/%m/%Y')}
+        <div class="container">
+            <div class="header">
+                <h1>📊 BÁO CÁO TUẦN - AIHUBOS</h1>
+                <div class="date">
+                    Tuần từ {start_date.strftime('%d/%m/%Y')} đến {end_date.strftime('%d/%m/%Y')}<br>
+                    Tạo lúc: {now.strftime('%H:%M:%S %d/%m/%Y')}
+                </div>
             </div>
-        </div>
 
-        <div class="summary">
-            <div class="summary-card">
-                <h3>Tổng Tasks</h3>
-                <div class="value">{week_stats['total']}</div>
-                <div class="label">Tasks trong tuần</div>
+            <div class="summary">
+                <div class="summary-card">
+                    <h3>Tổng Tasks</h3>
+                    <div class="value">{week_stats['total']}</div>
+                    <div class="label">Tasks trong tuần</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Hoàn Thành</h3>
+                    <div class="value">{week_stats['completed']}</div>
+                    <div class="label">{kpi:.1f}% KPI</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Chưa Xong</h3>
+                    <div class="value">{week_stats['pending']}</div>
+                    <div class="label">{week_stats.get('in_progress', 0)} đang làm</div>
+                </div>
             </div>
-            <div class="summary-card success">
-                <h3>Hoàn Thành</h3>
-                <div class="value">{week_stats['completed']}</div>
-                <div class="label">{kpi:.1f}% KPI</div>
-            </div>
-            <div class="summary-card warning">
-                <h3>Chưa Xong</h3>
-                <div class="value">{week_stats['pending']}</div>
-                <div class="label">{week_stats.get('in_progress', 0)} đang làm</div>
-            </div>
-        </div>
 
-        <div class="kpi-chart">
-            <h3 style="margin-top: 0;">📈 KPI Tuần</h3>
-            <div class="kpi-bar">
-                <div class="kpi-fill" style="width: {kpi}%">{kpi:.1f}%</div>
+            <div class="kpi-chart">
+                <h3>📈 KPI Tuần</h3>
+                <div class="kpi-bar">
+                    <div class="kpi-fill" style="width: {kpi}%">{kpi:.1f}%</div>
+                </div>
             </div>
-        </div>
 
-        <h3>🎯 Độ Ưu Tiên Tasks</h3>
-        <div class="priority-section">
-            <div class="priority-card urgent">
-                <div class="icon">🔴</div>
-                <div class="count">{week_stats['by_priority'].get('urgent', 0)}</div>
-                <div class="label">Khẩn cấp</div>
+            <h3>🎯 Độ Ưu Tiên Tasks</h3>
+            <div class="priority-section">
+                <div class="priority-card">
+                    <div class="icon">🔴</div>
+                    <div class="count">{week_stats['by_priority'].get('urgent', 0)}</div>
+                    <div class="label">Khẩn cấp</div>
+                </div>
+                <div class="priority-card">
+                    <div class="icon">🟠</div>
+                    <div class="count">{week_stats['by_priority'].get('high', 0)}</div>
+                    <div class="label">Cao</div>
+                </div>
+                <div class="priority-card">
+                    <div class="icon">🟡</div>
+                    <div class="count">{week_stats['by_priority'].get('normal', 0)}</div>
+                    <div class="label">Bình thường</div>
+                </div>
+                <div class="priority-card">
+                    <div class="icon">🔵</div>
+                    <div class="count">{week_stats['by_priority'].get('low', 0)}</div>
+                    <div class="label">Thấp</div>
+                </div>
             </div>
-            <div class="priority-card high">
-                <div class="icon">🟠</div>
-                <div class="count">{week_stats['by_priority'].get('high', 0)}</div>
-                <div class="label">Cao</div>
-            </div>
-            <div class="priority-card normal">
-                <div class="icon">🟡</div>
-                <div class="count">{week_stats['by_priority'].get('normal', 0)}</div>
-                <div class="label">Bình thường</div>
-            </div>
-            <div class="priority-card low">
-                <div class="icon">🔵</div>
-                <div class="count">{week_stats['by_priority'].get('low', 0)}</div>
-                <div class="label">Thấp</div>
-            </div>
-        </div>
 
-        <h3>👥 KPI Theo Người Được Giao Việc</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Người thực hiện</th>
-                    <th>Tổng</th>
-                    <th>Hoàn thành</th>
-                    <th>Còn lại</th>
-                    <th>Đang làm</th>
-                    <th>Quá hạn</th>
-                    <th>KPI</th>
-                </tr>
-            </thead>
-            <tbody>
-                {user_rows}
-            </tbody>
-        </table>
+            <h3>👥 KPI Theo Người Được Giao Việc</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Người thực hiện</th>
+                        <th>Tổng</th>
+                        <th>Hoàn thành</th>
+                        <th>Còn lại</th>
+                        <th>Đang làm</th>
+                        <th>Quá hạn</th>
+                        <th>KPI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {user_rows}
+                </tbody>
+            </table>
 
-        <div class="footer">
-            <p><strong>AIHubOS Automation System v1.3</strong></p>
-            <p>🤖 Báo cáo tự động - Không cần thao tác thủ công</p>
+            <div class="footer">
+                <p><strong>AIHubOS Automation System v1.3</strong></p>
+                <p>🤖 Báo cáo tự động - Không cần thao tác thủ công</p>
+            </div>
         </div>
     </body>
     </html>
     """
     
     return html
-
 
 def generate_and_send_weekly_pdf():
     print(f"\n📊 Generating weekly report PDF...")
@@ -1365,6 +1395,91 @@ def setup_webhook():
     else:
         return f"❌ Lỗi set webhook!<br>Response: {result}", 500
 
+@app.route('/trigger_deadline_warning', methods=['GET', 'HEAD'])
+def trigger_deadline_warning():
+    if request.method == 'HEAD':
+        return '', 200
+    
+    print(f"\n⚠️ Deadline warning check triggered at {get_vn_now().strftime('%H:%M:%S')}")
+    
+    try:
+        tasks = get_today_tasks()
+        
+        if not tasks:
+            print("   ℹ️  No tasks found")
+            return 'OK', 200
+        
+        now_vn = get_vn_now()
+        tomorrow = now_vn + datetime.timedelta(days=1)
+        tomorrow_start = tomorrow.replace(hour=0, minute=0, second=0, microsecond=0)
+        tomorrow_end = tomorrow.replace(hour=23, minute=59, second=59, microsecond=999999)
+        
+        warnings_sent = 0
+        
+        for task in tasks:
+            status_info = task.get('status', {})
+            status = status_info.get('status', '').lower() if isinstance(status_info, dict) else ''
+            
+            if status in ['complete', 'completed', 'closed', 'done', 'achevé']:
+                continue
+            
+            due_date = task.get('due_date')
+            if not due_date:
+                continue
+            
+            try:
+                due_utc = datetime.datetime.fromtimestamp(int(due_date) / 1000, tz=pytz.UTC)
+                due_vn = due_utc.astimezone(VN_TZ)
+                
+                if tomorrow_start <= due_vn <= tomorrow_end:
+                    task_name = task.get('name', 'Không rõ')
+                    task_url = task.get('url', '')
+                    
+                    assignees = task.get('assignees', [])
+                    if assignees:
+                        assignees_list = [a.get("username", "N/A") for a in assignees]
+                        assignees_text = ", ".join(assignees_list)
+                    else:
+                        assignees_text = "Chưa phân công"
+                    
+                    priority_data = task.get('priority')
+                    priority_text = get_priority_text(priority_data)
+                    
+                    due_date_text = format_timestamp(due_date)
+                    
+                    tags = task.get("tags", [])
+                    target_chat_id = get_chat_id_from_tags(tags)
+                    
+                    hours_left = (due_vn - now_vn).total_seconds() / 3600
+                    
+                    msg = f"""
+⏰ <b>CẢNH BÁO: TASK SẮP HẾT HẠN!</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+👥 Người phụ trách: <b>{assignees_text}</b>
+⚡ Mức độ: {priority_text}
+📅 Deadline: <b>{due_date_text}</b>
+⏳ Còn lại: <b>{int(hours_left)} giờ {int((hours_left % 1) * 60)} phút</b>
+📌 Trạng thái: {status}
+━━━━━━━━━━━━━━━━━━━━
+⚠️ <b>Task sẽ hết hạn trong vòng 24 giờ!</b>
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem ngay</a>
+"""
+                    send_message(msg.strip(), target_chat_id)
+                    warnings_sent += 1
+                    print(f"   ✅ Warning sent for task: {task_name}")
+            
+            except Exception as e:
+                print(f"   ❌ Error processing task: {e}")
+                continue
+        
+        print(f"   📊 Total warnings sent: {warnings_sent}")
+        return 'OK', 200
+    
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return 'ER', 500
 
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 5000))
