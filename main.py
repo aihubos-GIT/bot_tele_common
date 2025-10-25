@@ -8,7 +8,6 @@ import pytz
 import gspread
 from google.oauth2.service_account import Credentials
 import tempfile
-from functools import lru_cache
 import threading
 
 load_dotenv()
@@ -40,9 +39,9 @@ SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
 
 VN_TZ = pytz.timezone('Asia/Ho_Chi_Minh')
 
-# Cache để tránh gọi API nhiều lần
+# CRITICAL: Tắt cache để đảm bảo real-time
 _task_cache = {}
-_cache_timeout = 60  # 60 seconds
+CACHE_ENABLED = False
 
 print("="*50)
 print("🔍 KIỂM TRA CONFIG:")
@@ -59,6 +58,7 @@ print(f"GOOGLE_CREDENTIALS: {'✅ CÓ (' + str(len(GOOGLE_CREDENTIALS)) + ' char
 print(f"RENDER_API_URL: {RENDER_API_URL}" if RENDER_API_URL else "RENDER_API_URL: ❌ KHÔNG CÓ")
 print(f"RENDER_API_KEY: {'✅ CÓ (' + str(len(RENDER_API_KEY)) + ' chars)' if RENDER_API_KEY else '❌ KHÔNG CÓ'}")
 print(f"⏰ Server timezone: {datetime.datetime.now(VN_TZ).strftime('%H:%M:%S %d/%m/%Y')}")
+print(f"💾 Cache Mode: {'ENABLED' if CACHE_ENABLED else 'DISABLED (Real-time)'}")
 print("="*50)
 
 TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
@@ -111,10 +111,15 @@ def calculate_duration(start_timestamp):
         return ""
 
 
-def get_chat_id_from_tags(tags):
-    """Cải thiện: Xử lý tags tốt hơn"""
+def get_all_chat_ids_from_tags(tags):
+    """
+    FIX CHÍNH: Trả về DANH SÁCH chat IDs thay vì 1 chat duy nhất
+    Ví dụ: tags = ["admin", "content"] → return ["-1003086591861", "-1003036322284"]
+    """
     if not tags:
-        return TAG_TO_CHAT_ID["default"]
+        return [TAG_TO_CHAT_ID["default"]]
+    
+    chat_ids = set()  # Dùng set để tránh duplicate
     
     tag_names = []
     for tag in tags:
@@ -123,23 +128,34 @@ def get_chat_id_from_tags(tags):
         elif isinstance(tag, str):
             tag_names.append(tag.lower())
     
+    print(f"🏷️  Processing tags: {tag_names}")
+    
+    # Duyệt qua TẤT CẢ tags, không return sớm
     for tag_name in tag_names:
         if "content" in tag_name:
-            print(f"📌 Detected CONTENT tag: {tag_name}")
-            return TAG_TO_CHAT_ID["content"]
-        elif "dev" in tag_name or "developer" in tag_name:
-            print(f"📌 Detected DEV tag: {tag_name}")
-            return TAG_TO_CHAT_ID["dev"]
-        elif "admin" in tag_name:
-            print(f"📌 Detected ADMIN tag: {tag_name}")
-            return TAG_TO_CHAT_ID["admin"]
+            print(f"   ✅ Matched CONTENT tag: {tag_name}")
+            chat_ids.add(TAG_TO_CHAT_ID["content"])
+        
+        if "dev" in tag_name or "developer" in tag_name:
+            print(f"   ✅ Matched DEV tag: {tag_name}")
+            chat_ids.add(TAG_TO_CHAT_ID["dev"])
+        
+        if "admin" in tag_name:
+            print(f"   ✅ Matched ADMIN tag: {tag_name}")
+            chat_ids.add(TAG_TO_CHAT_ID["admin"])
     
-    print(f"📌 No matching tag found, using default chat")
-    return TAG_TO_CHAT_ID["default"]
+    # Nếu không match tag nào, dùng default
+    if not chat_ids:
+        print(f"   📌 No matching tags, using default")
+        chat_ids.add(TAG_TO_CHAT_ID["default"])
+    
+    result = list(chat_ids)
+    print(f"   📍 Target chat IDs: {result}")
+    return result
 
 
 def send_message(text, chat_id=None):
-    """Cải thiện: Gửi message async để không block"""
+    """Gửi message async để không block"""
     if chat_id is None:
         chat_id = CHAT_ID
     
@@ -151,18 +167,19 @@ def send_message(text, chat_id=None):
         }
         try:
             res = requests.post(TELEGRAM_API, json=payload, timeout=5)
-            print(f"✅ Message sent to {chat_id} (status: {res.status_code})")
+            print(f"   ✅ Message sent to {chat_id} (status: {res.status_code})")
         except Exception as e:
-            print(f"❌ Error sending message: {e}")
+            print(f"   ❌ Error sending message to {chat_id}: {e}")
     
-    # Gửi async để không block webhook
     thread = threading.Thread(target=_send)
     thread.daemon = True
     thread.start()
 
 
 def send_to_multiple_chats(text, chat_ids):
-    """Cải thiện: Gửi parallel để nhanh hơn"""
+    """FIX: Gửi parallel đến nhiều chats"""
+    print(f"   📤 Sending to {len(chat_ids)} chats: {chat_ids}")
+    
     threads = []
     for chat_id in chat_ids:
         thread = threading.Thread(target=send_message, args=(text, chat_id))
@@ -175,29 +192,38 @@ def send_to_multiple_chats(text, chat_ids):
         thread.join(timeout=3)
 
 
-def get_task_info(task_id, use_cache=True):
-    """Cải thiện: Thêm cache để giảm API calls"""
-    if use_cache:
-        now = datetime.datetime.now().timestamp()
+def get_task_info(task_id, force_refresh=False):
+    """
+    FIX: Thêm flag force_refresh để bắt buộc lấy data mới
+    """
+    # Kiểm tra cache (chỉ khi CACHE_ENABLED=True và không force_refresh)
+    if CACHE_ENABLED and not force_refresh:
         if task_id in _task_cache:
             cached_data, cached_time = _task_cache[task_id]
-            if now - cached_time < _cache_timeout:
+            now = datetime.datetime.now().timestamp()
+            if now - cached_time < 60:  # Cache 60s
+                print(f"   💾 Using cached data for task {task_id}")
                 return cached_data
     
     url = f"https://api.clickup.com/api/v2/task/{task_id}"
     headers = {"Authorization": CLICKUP_API_TOKEN}
     
     try:
+        print(f"   🔄 Fetching FRESH data for task {task_id}")
         response = requests.get(url, headers=headers, timeout=5)
         if response.status_code == 200:
             data = response.json()
-            _task_cache[task_id] = (data, datetime.datetime.now().timestamp())
+            
+            # Save to cache
+            if CACHE_ENABLED:
+                _task_cache[task_id] = (data, datetime.datetime.now().timestamp())
+            
             return data
         else:
-            print(f"❌ ClickUp API error: {response.status_code}")
+            print(f"   ❌ ClickUp API error: {response.status_code}")
         return None
     except Exception as e:
-        print(f"❌ Error getting task info: {e}")
+        print(f"   ❌ Error getting task info: {e}")
         return None
 
 
@@ -402,7 +428,7 @@ def get_gsheet_client():
 
 
 def backup_to_sheet(task_info):
-    """Cải thiện: Backup async để không block"""
+    """Backup async để không block"""
     def _backup():
         try:
             client = get_gsheet_client()
@@ -892,8 +918,8 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
             </table>
 
             <div class="footer">
-                <p><strong>AIHubOS Automation System v2.0</strong></p>
-                <p>🤖 Báo cáo tự động - Không cần thao tác thủ công</p>
+                <p><strong>AIHubOS Automation System v2.1</strong></p>
+                <p>🤖 Báo cáo tự động - Multi-chat support</p>
             </div>
         </div>
     </body>
@@ -1002,12 +1028,12 @@ def telegram_handler():
         
         if text == "/report_eod":
             msg = generate_report("evening")
-            all_chat_ids = list(TAG_TO_CHAT_ID.values())
+            all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
             send_to_multiple_chats(msg, all_chat_ids)
         
         elif text == "/report_now":
             msg = generate_report("daily")
-            all_chat_ids = list(TAG_TO_CHAT_ID.values())
+            all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
             send_to_multiple_chats(msg, all_chat_ids)
     
     return {"ok": True}, 200
@@ -1015,15 +1041,17 @@ def telegram_handler():
 
 @app.route('/clickup', methods=['POST', 'GET'])
 def clickup_webhook():
-    print("\n========== CLICKUP WEBHOOK RECEIVED ==========")
+    print("\n" + "="*60)
+    print("📥 CLICKUP WEBHOOK RECEIVED")
     print(f"⏰ Time (VN): {get_vn_now().strftime('%H:%M:%S %d/%m/%Y')}")
+    print("="*60)
     
     data = request.get_json()
     
     try:
         with open('clickup_data.json', 'a', encoding='utf-8') as f:
             f.write(json.dumps(data, indent=2, ensure_ascii=False))
-            f.write("\n\n" + "="*50 + "\n\n")
+            f.write("\n\n" + "="*60 + "\n\n")
     except Exception as e:
         print(f"❌ Error logging: {e}")
     
@@ -1031,19 +1059,21 @@ def clickup_webhook():
     history_items = data.get("history_items", [])
     task_id = data.get("task_id", "")
     
-    # CRITICAL FIX: Không cache khi có tag update để đảm bảo lấy tags mới nhất
-    use_cache = event not in ["taskUpdated"]
-    task_data = get_task_info(task_id, use_cache=use_cache)
+    print(f"🎯 Event: {event}")
+    print(f"📋 Task ID: {task_id}")
+    
+    # CRITICAL FIX: Luôn force refresh để lấy data mới nhất
+    task_data = get_task_info(task_id, force_refresh=True)
     
     if not task_data:
+        print("❌ Cannot get task data, skipping...")
         return {"ok": True}, 200
     
+    # Get tags và ALL chat IDs
     tags = task_data.get("tags", [])
-    target_chat_id = get_chat_id_from_tags(tags)
+    target_chat_ids = get_all_chat_ids_from_tags(tags)
     
-    print(f"📍 Target chat ID: {target_chat_id}")
-    print(f"🏷️ Tags: {[tag.get('name') for tag in tags if isinstance(tag, dict)]}")
-    
+    # Task info
     task_name = task_data.get("name", "Không rõ")
     task_url = task_data.get("url", "")
     
@@ -1082,6 +1112,8 @@ def clickup_webhook():
         if isinstance(user_info, dict):
             action_user = user_info.get("username", "Không rõ")
     
+    # ============ HANDLE EVENTS ============
+    
     if event == "taskCreated":
         overdue_warning = ""
         if is_overdue:
@@ -1099,30 +1131,30 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-        send_message(msg.strip(), target_chat_id)
+        send_to_multiple_chats(msg.strip(), target_chat_ids)
     
     elif event == "taskUpdated":
-        # FIX: Kiểm tra xem có tag được thêm/xóa không
-        tag_changed = False
+        # Check tag changes FIRST
         for item in history_items:
             field = item.get("field", "")
-            if field in ["tag_added", "tag_removed"]:
-                tag_changed = True
-                
+            
+            if field == "tag_added":
                 after = item.get("after", {})
-                before = item.get("before", {})
+                tag_name = after.get("name", "Unknown") if isinstance(after, dict) else "Unknown"
                 
-                if field == "tag_added":
-                    tag_name = after.get("name", "Unknown") if isinstance(after, dict) else "Unknown"
-                    
-                    # Gửi thông báo đến chat mới
-                    new_chat_id = get_chat_id_from_tags([after])
+                print(f"\n🏷️  TAG ADDED: {tag_name}")
+                
+                # FIX: Lấy lại task data để có tags mới nhất
+                fresh_task_data = get_task_info(task_id, force_refresh=True)
+                if fresh_task_data:
+                    new_tags = fresh_task_data.get("tags", [])
+                    new_chat_ids = get_all_chat_ids_from_tags(new_tags)
                     
                     msg = f"""
 🏷️ <b>THÊM TAG</b>
 ━━━━━━━━━━━━━━━━━━━━
 📋 <b>{task_name}</b>
-🔖 Tag: <b>{tag_name}</b>
+🔖 Tag mới: <b>{tag_name}</b>
 👤 Người thêm: <b>{action_user}</b>
 👥 Phụ trách: {assignees_text}
 ⚡ Mức độ: {priority_text}
@@ -1131,12 +1163,16 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                    send_message(msg.strip(), new_chat_id)
+                    # Gửi đến TẤT CẢ chats tương ứng với tags hiện tại
+                    send_to_multiple_chats(msg.strip(), new_chat_ids)
+            
+            elif field == "tag_removed":
+                before = item.get("before", {})
+                tag_name = before.get("name", "Unknown") if isinstance(before, dict) else "Unknown"
                 
-                elif field == "tag_removed":
-                    tag_name = before.get("name", "Unknown") if isinstance(before, dict) else "Unknown"
-                    
-                    msg = f"""
+                print(f"\n🏷️  TAG REMOVED: {tag_name}")
+                
+                msg = f"""
 🏷️ <b>XÓA TAG</b>
 ━━━━━━━━━━━━━━━━━━━━
 📋 <b>{task_name}</b>
@@ -1146,8 +1182,10 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                    send_message(msg.strip(), target_chat_id)
+                # Vẫn gửi đến các chats của tags còn lại
+                send_to_multiple_chats(msg.strip(), target_chat_ids)
         
+        # Check other updates
         for item in history_items:
             field = item.get("field", "")
             
@@ -1157,6 +1195,8 @@ def clickup_webhook():
                 
                 old_status = before.get("status", "Không rõ") if isinstance(before, dict) else "Không rõ"
                 new_status = after.get("status", "Không rõ") if isinstance(after, dict) else "Không rõ"
+                
+                print(f"📊 Status changed: {old_status} → {new_status}")
                 
                 if new_status.lower() in ["complete", "completed", "closed", "done", "achevé"]:
                     completion_status = ""
@@ -1210,7 +1250,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                    send_message(msg.strip(), target_chat_id)
+                    send_to_multiple_chats(msg.strip(), target_chat_ids)
                     
                     duration_str = calculate_duration(date_created) if date_created else ""
                     on_time_status = "Không xác định"
@@ -1247,11 +1287,13 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                    send_message(msg.strip(), target_chat_id)
+                    send_to_multiple_chats(msg.strip(), target_chat_ids)
             
             elif field == "assignee_add":
                 after = item.get("after", {})
                 new_assignee = after.get("username", "Không rõ") if isinstance(after, dict) else "Không rõ"
+                
+                print(f"👤 Assignee added: {new_assignee}")
                 
                 overdue_warning = ""
                 if is_overdue:
@@ -1268,11 +1310,13 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                send_message(msg.strip(), target_chat_id)
+                send_to_multiple_chats(msg.strip(), target_chat_ids)
             
             elif field == "assignee_rem":
                 before = item.get("before", {})
                 removed_assignee = before.get("username", "Không rõ") if isinstance(before, dict) else "Không rõ"
+                
+                print(f"👤 Assignee removed: {removed_assignee}")
                 
                 msg = f"""
 👤 <b>XÓA PHÂN CÔNG</b>
@@ -1284,11 +1328,13 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                send_message(msg.strip(), target_chat_id)
+                send_to_multiple_chats(msg.strip(), target_chat_ids)
             
             elif field == "due_date":
                 after = item.get("after", {})
                 new_due = format_timestamp(after) if after else "Không có"
+                
+                print(f"📅 Deadline changed to: {new_due}")
                 
                 msg = f"""
 📅 <b>THAY ĐỔI DEADLINE</b>
@@ -1302,9 +1348,11 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                send_message(msg.strip(), target_chat_id)
+                send_to_multiple_chats(msg.strip(), target_chat_ids)
     
     elif event == "taskDeleted":
+        print(f"🗑️  Task deleted: {task_name}")
+        
         msg = f"""
 🗑️ <b>TASK ĐÃ BỊ XÓA</b>
 ━━━━━━━━━━━━━━━━━━━━
@@ -1315,7 +1363,7 @@ def clickup_webhook():
 🕒 Xóa lúc: {now}
 ━━━━━━━━━━━━━━━━━━━━
 """
-        send_message(msg.strip(), target_chat_id)
+        send_to_multiple_chats(msg.strip(), target_chat_ids)
     
     elif event == "taskCommentPosted":
         comment_text = "Không có nội dung"
@@ -1329,6 +1377,8 @@ def clickup_webhook():
         if len(comment_text) > 200:
             comment_text = comment_text[:200] + "..."
         
+        print(f"💬 Comment posted by {action_user}")
+        
         msg = f"""
 💬 <b>COMMENT MỚI</b>
 ━━━━━━━━━━━━━━━━━━━━
@@ -1340,14 +1390,27 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-        send_message(msg.strip(), target_chat_id)
+        send_to_multiple_chats(msg.strip(), target_chat_ids)
     
+    print("="*60 + "\n")
     return {"ok": True}, 200
 
 
 @app.route('/', methods=['GET'])
 def home():
-    return "✅ ClickUp ↔ Telegram bot đang hoạt động! v2.0", 200
+    return jsonify({
+        "status": "running",
+        "service": "ClickUp → Telegram Webhook (Fixed Multi-chat)",
+        "version": "2.1",
+        "features": [
+            "✅ Multi-chat support for multiple tags",
+            "✅ Real-time updates (no cache)",
+            "✅ Parallel message sending",
+            "✅ Fixed tag_added/removed events"
+        ],
+        "tag_mappings": TAG_TO_CHAT_ID,
+        "cache_mode": "DISABLED" if not CACHE_ENABLED else "ENABLED"
+    }), 200
 
 
 @app.route('/trigger_morning_report', methods=['GET', 'HEAD'])
@@ -1488,7 +1551,7 @@ def trigger_deadline_warning():
                     due_date_text = format_timestamp(due_date)
                     
                     tags = task.get("tags", [])
-                    target_chat_id = get_chat_id_from_tags(tags)
+                    target_chat_ids = get_all_chat_ids_from_tags(tags)
                     
                     hours_left = (due_vn - now_vn).total_seconds() / 3600
                     
@@ -1506,7 +1569,7 @@ def trigger_deadline_warning():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem ngay</a>
 """
-                    send_message(msg.strip(), target_chat_id)
+                    send_to_multiple_chats(msg.strip(), target_chat_ids)
                     warnings_sent += 1
                     print(f"   ✅ Warning sent for task: {task_name} (due tomorrow)")
             
@@ -1536,6 +1599,41 @@ def setup_webhook():
         return f"❌ Lỗi set webhook!<br>Response: {result}", 500
 
 
+@app.route('/test_multi_tag', methods=['GET'])
+def test_multi_tag():
+    """Test endpoint để kiểm tra multi-tag logic"""
+    test_tags = [
+        {"name": "admin"},
+        {"name": "content"}
+    ]
+    
+    chat_ids = get_all_chat_ids_from_tags(test_tags)
+    
+    return jsonify({
+        "test_tags": test_tags,
+        "matched_chat_ids": chat_ids,
+        "expected": [TAG_TO_CHAT_ID["admin"], TAG_TO_CHAT_ID["content"]],
+        "success": len(chat_ids) == 2
+    }), 200
+
+
 if __name__ == '__main__':
+    print("\n" + "="*60)
+    print("🚀 ClickUp → Telegram Webhook Service v2.1 (FIXED)")
+    print("="*60)
+    print("✅ FIXES APPLIED:")
+    print("   1. Multi-chat support - gửi đến TẤT CẢ chats có tag")
+    print("   2. Real-time mode - không dùng cache khi update")
+    print("   3. Force refresh - luôn lấy data mới nhất")
+    print("   4. Parallel sending - gửi đồng thời nhiều chats")
+    print("="*60)
+    print(f"📍 Tag Mappings:")
+    for tag, chat_id in TAG_TO_CHAT_ID.items():
+        print(f"   - {tag:10s}: {chat_id}")
+    print(f"💾 Cache Mode: {'ENABLED' if CACHE_ENABLED else 'DISABLED (Real-time)'}")
+    print("="*60)
+    print("🧪 Test endpoint: /test_multi_tag")
+    print("="*60 + "\n")
+    
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
