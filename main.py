@@ -8,6 +8,8 @@ import pytz
 import gspread
 from google.oauth2.service_account import Credentials
 import tempfile
+from functools import lru_cache
+import threading
 
 load_dotenv()
 
@@ -37,6 +39,10 @@ GOOGLE_CREDENTIALS = os.getenv("GOOGLE_CREDENTIALS_JSON")
 SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
 
 VN_TZ = pytz.timezone('Asia/Ho_Chi_Minh')
+
+# Cache để tránh gọi API nhiều lần
+_task_cache = {}
+_cache_timeout = 60  # 60 seconds
 
 print("="*50)
 print("🔍 KIỂM TRA CONFIG:")
@@ -106,10 +112,16 @@ def calculate_duration(start_timestamp):
 
 
 def get_chat_id_from_tags(tags):
+    """Cải thiện: Xử lý tags tốt hơn"""
     if not tags:
         return TAG_TO_CHAT_ID["default"]
     
-    tag_names = [tag.get("name", "").lower() for tag in tags if isinstance(tag, dict)]
+    tag_names = []
+    for tag in tags:
+        if isinstance(tag, dict):
+            tag_names.append(tag.get("name", "").lower())
+        elif isinstance(tag, str):
+            tag_names.append(tag.lower())
     
     for tag_name in tag_names:
         if "content" in tag_name:
@@ -127,36 +139,60 @@ def get_chat_id_from_tags(tags):
 
 
 def send_message(text, chat_id=None):
+    """Cải thiện: Gửi message async để không block"""
     if chat_id is None:
         chat_id = CHAT_ID
     
-    payload = {
-        "chat_id": chat_id,
-        "text": text,
-        "parse_mode": "HTML"
-    }
-    try:
-        res = requests.post(TELEGRAM_API, json=payload, timeout=10)
-        print(f"✅ Message sent to {chat_id} (status: {res.status_code})")
-        return res.status_code
-    except Exception as e:
-        print(f"❌ Error sending message: {e}")
-        return None
+    def _send():
+        payload = {
+            "chat_id": chat_id,
+            "text": text,
+            "parse_mode": "HTML"
+        }
+        try:
+            res = requests.post(TELEGRAM_API, json=payload, timeout=5)
+            print(f"✅ Message sent to {chat_id} (status: {res.status_code})")
+        except Exception as e:
+            print(f"❌ Error sending message: {e}")
+    
+    # Gửi async để không block webhook
+    thread = threading.Thread(target=_send)
+    thread.daemon = True
+    thread.start()
 
 
 def send_to_multiple_chats(text, chat_ids):
+    """Cải thiện: Gửi parallel để nhanh hơn"""
+    threads = []
     for chat_id in chat_ids:
-        send_message(text, chat_id)
+        thread = threading.Thread(target=send_message, args=(text, chat_id))
+        thread.daemon = True
+        thread.start()
+        threads.append(thread)
+    
+    # Đợi tất cả threads hoàn thành (với timeout)
+    for thread in threads:
+        thread.join(timeout=3)
 
 
-def get_task_info(task_id):
+def get_task_info(task_id, use_cache=True):
+    """Cải thiện: Thêm cache để giảm API calls"""
+    if use_cache:
+        now = datetime.datetime.now().timestamp()
+        if task_id in _task_cache:
+            cached_data, cached_time = _task_cache[task_id]
+            if now - cached_time < _cache_timeout:
+                return cached_data
+    
     url = f"https://api.clickup.com/api/v2/task/{task_id}"
     headers = {"Authorization": CLICKUP_API_TOKEN}
     
     try:
-        response = requests.get(url, headers=headers, timeout=10)
+        response = requests.get(url, headers=headers, timeout=5)
         if response.status_code == 200:
-            return response.json()
+            data = response.json()
+            _task_cache[task_id] = (data, datetime.datetime.now().timestamp())
+            return data
         else:
             print(f"❌ ClickUp API error: {response.status_code}")
         return None
@@ -179,7 +215,7 @@ def get_all_tasks_in_period(start_date, end_date):
     
     try:
         print(f"\n🔍 Querying all tasks from List {CLICKUP_LIST_ID}...")
-        response = requests.get(url, headers=headers, params=params, timeout=15)
+        response = requests.get(url, headers=headers, params=params, timeout=10)
         
         if response.status_code == 200:
             data = response.json()
@@ -200,7 +236,6 @@ def get_all_tasks_in_period(start_date, end_date):
             return filtered_tasks
         else:
             print(f"❌ ClickUp API error: {response.status_code}")
-            print(f"Response: {response.text}")
             return []
     except Exception as e:
         print(f"❌ Error getting tasks: {e}")
@@ -220,8 +255,7 @@ def get_today_tasks():
     }
     
     try:
-        print(f"\n🔍 Lấy tất cả tasks trong List {CLICKUP_LIST_ID}...")
-        response = requests.get(url, headers=headers, params=params, timeout=15)
+        response = requests.get(url, headers=headers, params=params, timeout=10)
         
         if response.status_code == 200:
             data = response.json()
@@ -246,9 +280,6 @@ def get_week_tasks():
 
 
 def analyze_tasks(tasks):
-    """
-    Phân tích tasks theo người được ASSIGN (không phải người tạo)
-    """
     stats = {
         'total': len(tasks),
         'completed': 0,
@@ -370,62 +401,43 @@ def get_gsheet_client():
         return None
 
 
-def init_sheet_headers():
-    try:
-        client = get_gsheet_client()
-        if not client:
-            return False
-        
-        sheet = client.open_by_key(SHEET_ID)
-        
-        try:
-            worksheet = sheet.worksheet("Tasks")
-        except:
-            worksheet = sheet.add_worksheet(title="Tasks", rows=1000, cols=12)
-            headers = [
-                "Timestamp", "Task Name", "Assignee", "Status",
-                "Priority", "Created", "Due Date", "Completed",
-                "Duration", "On Time?", "URL", "Creator"
-            ]
-            worksheet.append_row(headers)
-        
-        return True
-    except Exception as e:
-        print(f"❌ Error init headers: {e}")
-        return False
-
-
 def backup_to_sheet(task_info):
-    try:
-        client = get_gsheet_client()
-        if not client:
+    """Cải thiện: Backup async để không block"""
+    def _backup():
+        try:
+            client = get_gsheet_client()
+            if not client:
+                return False
+            
+            sheet = client.open_by_key(SHEET_ID)
+            worksheet = sheet.worksheet("Tasks")
+            
+            row = [
+                task_info.get("timestamp", ""),
+                task_info.get("name", ""),
+                task_info.get("assignee", ""),
+                task_info.get("status", ""),
+                task_info.get("priority", ""),
+                task_info.get("created", ""),
+                task_info.get("due_date", ""),
+                task_info.get("completed", ""),
+                task_info.get("duration", ""),
+                task_info.get("on_time", ""),
+                task_info.get("url", ""),
+                task_info.get("creator", "")
+            ]
+            
+            worksheet.append_row(row)
+            print(f"✅ Backed up to Google Sheet: {task_info.get('name')}")
+            return True
+            
+        except Exception as e:
+            print(f"❌ Error backup to sheet: {e}")
             return False
-        
-        sheet = client.open_by_key(SHEET_ID)
-        worksheet = sheet.worksheet("Tasks")
-        
-        row = [
-            task_info.get("timestamp", ""),
-            task_info.get("name", ""),
-            task_info.get("assignee", ""),
-            task_info.get("status", ""),
-            task_info.get("priority", ""),
-            task_info.get("created", ""),
-            task_info.get("due_date", ""),
-            task_info.get("completed", ""),
-            task_info.get("duration", ""),
-            task_info.get("on_time", ""),
-            task_info.get("url", ""),
-            task_info.get("creator", "")
-        ]
-        
-        worksheet.append_row(row)
-        print(f"✅ Backed up to Google Sheet: {task_info.get('name')}")
-        return True
-        
-    except Exception as e:
-        print(f"❌ Error backup to sheet: {e}")
-        return False
+    
+    thread = threading.Thread(target=_backup)
+    thread.daemon = True
+    thread.start()
 
 
 def generate_report(report_type="daily"):
@@ -880,7 +892,7 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
             </table>
 
             <div class="footer">
-                <p><strong>AIHubOS Automation System v1.3</strong></p>
+                <p><strong>AIHubOS Automation System v2.0</strong></p>
                 <p>🤖 Báo cáo tự động - Không cần thao tác thủ công</p>
             </div>
         </div>
@@ -889,6 +901,7 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
     """
     
     return html
+
 
 def generate_and_send_weekly_pdf():
     print(f"\n📊 Generating weekly report PDF...")
@@ -1018,7 +1031,9 @@ def clickup_webhook():
     history_items = data.get("history_items", [])
     task_id = data.get("task_id", "")
     
-    task_data = get_task_info(task_id)
+    # CRITICAL FIX: Không cache khi có tag update để đảm bảo lấy tags mới nhất
+    use_cache = event not in ["taskUpdated"]
+    task_data = get_task_info(task_id, use_cache=use_cache)
     
     if not task_data:
         return {"ok": True}, 200
@@ -1087,6 +1102,52 @@ def clickup_webhook():
         send_message(msg.strip(), target_chat_id)
     
     elif event == "taskUpdated":
+        # FIX: Kiểm tra xem có tag được thêm/xóa không
+        tag_changed = False
+        for item in history_items:
+            field = item.get("field", "")
+            if field in ["tag_added", "tag_removed"]:
+                tag_changed = True
+                
+                after = item.get("after", {})
+                before = item.get("before", {})
+                
+                if field == "tag_added":
+                    tag_name = after.get("name", "Unknown") if isinstance(after, dict) else "Unknown"
+                    
+                    # Gửi thông báo đến chat mới
+                    new_chat_id = get_chat_id_from_tags([after])
+                    
+                    msg = f"""
+🏷️ <b>THÊM TAG</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+🔖 Tag: <b>{tag_name}</b>
+👤 Người thêm: <b>{action_user}</b>
+👥 Phụ trách: {assignees_text}
+⚡ Mức độ: {priority_text}
+📅 Deadline: {due_date_text}
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+                    send_message(msg.strip(), new_chat_id)
+                
+                elif field == "tag_removed":
+                    tag_name = before.get("name", "Unknown") if isinstance(before, dict) else "Unknown"
+                    
+                    msg = f"""
+🏷️ <b>XÓA TAG</b>
+━━━━━━━━━━━━━━━━━━━━
+📋 <b>{task_name}</b>
+🔖 Tag đã xóa: <b>{tag_name}</b>
+👤 Người xóa: <b>{action_user}</b>
+🕒 Lúc: {now}
+━━━━━━━━━━━━━━━━━━━━
+🔗 <a href="{task_url}">Xem chi tiết</a>
+"""
+                    send_message(msg.strip(), target_chat_id)
+        
         for item in history_items:
             field = item.get("field", "")
             
@@ -1242,22 +1303,6 @@ def clickup_webhook():
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
                 send_message(msg.strip(), target_chat_id)
-        
-        if is_overdue and status.lower() not in ["complete", "completed", "closed", "done", "achevé"]:
-            msg = f"""
-⚠️ <b>CẢNH BÁO: TASK QUÁ HẠN!</b>
-━━━━━━━━━━━━━━━━━━━━
-📋 <b>{task_name}</b>
-👥 Người phụ trách: <b>{assignees_text}</b>
-📅 Deadline: {due_date_text}
-⚡ Mức độ: {priority_text}
-⏰ <b>ĐÃ QUÁ HẠN!</b>
-📌 Trạng thái: {status}
-🕒 Kiểm tra lúc: {now}
-━━━━━━━━━━━━━━━━━━━━
-🔗 <a href="{task_url}">Xem ngay</a>
-"""
-            send_message(msg.strip(), target_chat_id)
     
     elif event == "taskDeleted":
         msg = f"""
@@ -1302,7 +1347,7 @@ def clickup_webhook():
 
 @app.route('/', methods=['GET'])
 def home():
-    return "✅ ClickUp ↔ Telegram bot đang hoạt động!", 200
+    return "✅ ClickUp ↔ Telegram bot đang hoạt động! v2.0", 200
 
 
 @app.route('/trigger_morning_report', methods=['GET', 'HEAD'])
@@ -1380,8 +1425,14 @@ def trigger_weekly_report():
             "status": "error",
             "message": str(e)
         }), 500
+
+
 @app.route('/trigger_deadline_warning', methods=['GET', 'HEAD'])
 def trigger_deadline_warning():
+    """
+    FIXED: Nhắc deadline trước 1 ngày (không phải ngày hôm đó)
+    Chạy 2 lần/ngày: 9h sáng và 7h tối
+    """
     if request.method == 'HEAD':
         return '', 200
     
@@ -1395,6 +1446,8 @@ def trigger_deadline_warning():
             return 'OK', 200
         
         now_vn = get_vn_now()
+        
+        # FIX: Kiểm tra tasks có deadline NGÀY MAI (không phải hôm nay)
         tomorrow = now_vn + datetime.timedelta(days=1)
         tomorrow_start = tomorrow.replace(hour=0, minute=0, second=0, microsecond=0)
         tomorrow_end = tomorrow.replace(hour=23, minute=59, second=59, microsecond=999999)
@@ -1405,6 +1458,7 @@ def trigger_deadline_warning():
             status_info = task.get('status', {})
             status = status_info.get('status', '').lower() if isinstance(status_info, dict) else ''
             
+            # Skip completed tasks
             if status in ['complete', 'completed', 'closed', 'done', 'achevé']:
                 continue
             
@@ -1416,6 +1470,7 @@ def trigger_deadline_warning():
                 due_utc = datetime.datetime.fromtimestamp(int(due_date) / 1000, tz=pytz.UTC)
                 due_vn = due_utc.astimezone(VN_TZ)
                 
+                # CRITICAL: Chỉ nhắc tasks có deadline NGÀY MAI
                 if tomorrow_start <= due_vn <= tomorrow_end:
                     task_name = task.get('name', 'Không rõ')
                     task_url = task.get('url', '')
@@ -1438,22 +1493,22 @@ def trigger_deadline_warning():
                     hours_left = (due_vn - now_vn).total_seconds() / 3600
                     
                     msg = f"""
-⏰ <b>CẢNH BÁO: TASK SẮP HẾT HẠN!</b>
+⏰ <b>CẢNH BÁO: TASK SẮP HẾT HẠN NGÀY MAI!</b>
 ━━━━━━━━━━━━━━━━━━━━
 📋 <b>{task_name}</b>
 👥 Người phụ trách: <b>{assignees_text}</b>
 ⚡ Mức độ: {priority_text}
 📅 Deadline: <b>{due_date_text}</b>
-⏳ Còn lại: <b>{int(hours_left)} giờ {int((hours_left % 1) * 60)} phút</b>
+⏳ Còn lại: <b>~{int(hours_left)} giờ</b>
 📌 Trạng thái: {status}
 ━━━━━━━━━━━━━━━━━━━━
-⚠️ <b>Task sẽ hết hạn trong vòng 24 giờ!</b>
+⚠️ <b>Task sẽ hết hạn vào ngày mai!</b>
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem ngay</a>
 """
                     send_message(msg.strip(), target_chat_id)
                     warnings_sent += 1
-                    print(f"   ✅ Warning sent for task: {task_name}")
+                    print(f"   ✅ Warning sent for task: {task_name} (due tomorrow)")
             
             except Exception as e:
                 print(f"   ❌ Error processing task: {e}")
@@ -1465,6 +1520,7 @@ def trigger_deadline_warning():
     except Exception as e:
         print(f"❌ Error: {e}")
         return 'ER', 500
+
 
 @app.route('/setup_webhook', methods=['GET'])
 def setup_webhook():
@@ -1478,7 +1534,6 @@ def setup_webhook():
         return f"✅ Webhook đã được set thành công!<br>URL: {telegram_webhook}<br>Response: {result}", 200
     else:
         return f"❌ Lỗi set webhook!<br>Response: {result}", 500
-
 
 
 if __name__ == '__main__':
