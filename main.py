@@ -9,7 +9,6 @@ import gspread
 from google.oauth2.service_account import Credentials
 import tempfile
 import threading
-from logger_utils import logger
 
 load_dotenv()
 
@@ -44,16 +43,23 @@ VN_TZ = pytz.timezone('Asia/Ho_Chi_Minh')
 _task_cache = {}
 CACHE_ENABLED = False
 
-# Log startup config
-logger.info("system", "config_loaded", "Telegram webhook service configuration loaded", extra={
-    "bot_token_present": bool(BOT_TOKEN),
-    "default_chat_id": CHAT_ID,
-    "clickup_configured": bool(CLICKUP_API_TOKEN and CLICKUP_LIST_ID),
-    "render_api_configured": bool(RENDER_API_URL and RENDER_API_KEY),
-    "google_sheets_configured": bool(GOOGLE_CREDENTIALS and SHEET_ID),
-    "cache_mode": "DISABLED" if not CACHE_ENABLED else "ENABLED",
-    "timezone": "Asia/Ho_Chi_Minh"
-})
+print("="*50)
+print("🔍 KIỂM TRA CONFIG:")
+print(f"BOT_TOKEN: {BOT_TOKEN[:20]}..." if BOT_TOKEN else "BOT_TOKEN: ❌ KHÔNG CÓ")
+print(f"DEFAULT CHAT_ID: {CHAT_ID}" if CHAT_ID else "CHAT_ID: ❌ KHÔNG CÓ")
+print(f"CONTENT TEAM CHAT_ID: {TAG_TO_CHAT_ID['content']}")
+print(f"DEV TEAM CHAT_ID: {TAG_TO_CHAT_ID['dev']}")
+print(f"ADMIN CHAT_ID: {TAG_TO_CHAT_ID['admin']}")
+print(f"CLICKUP_API_TOKEN: {CLICKUP_API_TOKEN[:20]}..." if CLICKUP_API_TOKEN else "CLICKUP_API_TOKEN: ❌ KHÔNG CÓ")
+print(f"CLICKUP_TEAM_ID: {CLICKUP_TEAM_ID}")
+print(f"CLICKUP_LIST_ID: {CLICKUP_LIST_ID}" if CLICKUP_LIST_ID else "CLICKUP_LIST_ID: ❌ KHÔNG CÓ")
+print(f"GOOGLE_SHEET_ID: {SHEET_ID}" if SHEET_ID else "GOOGLE_SHEET_ID: ❌ KHÔNG CÓ")
+print(f"GOOGLE_CREDENTIALS: {'✅ CÓ (' + str(len(GOOGLE_CREDENTIALS)) + ' chars)' if GOOGLE_CREDENTIALS else '❌ KHÔNG CÓ'}")
+print(f"RENDER_API_URL: {RENDER_API_URL}" if RENDER_API_URL else "RENDER_API_URL: ❌ KHÔNG CÓ")
+print(f"RENDER_API_KEY: {'✅ CÓ (' + str(len(RENDER_API_KEY)) + ' chars)' if RENDER_API_KEY else '❌ KHÔNG CÓ'}")
+print(f"⏰ Server timezone: {datetime.datetime.now(VN_TZ).strftime('%H:%M:%S %d/%m/%Y')}")
+print(f"💾 Cache Mode: {'ENABLED' if CACHE_ENABLED else 'DISABLED (Real-time)'}")
+print("="*50)
 
 TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 WEBHOOK_URL = f"https://bot-tele-common.onrender.com"
@@ -122,25 +128,29 @@ def get_all_chat_ids_from_tags(tags):
         elif isinstance(tag, str):
             tag_names.append(tag.lower())
     
-    logger.info("telegram_webhook", "tag_processing", f"Processing tags: {tag_names}")
+    print(f"🏷️  Processing tags: {tag_names}")
     
     # Duyệt qua TẤT CẢ tags, không return sớm
     for tag_name in tag_names:
         if "content" in tag_name:
+            print(f"   ✅ Matched CONTENT tag: {tag_name}")
             chat_ids.add(TAG_TO_CHAT_ID["content"])
         
         if "dev" in tag_name or "developer" in tag_name:
+            print(f"   ✅ Matched DEV tag: {tag_name}")
             chat_ids.add(TAG_TO_CHAT_ID["dev"])
         
         if "admin" in tag_name:
+            print(f"   ✅ Matched ADMIN tag: {tag_name}")
             chat_ids.add(TAG_TO_CHAT_ID["admin"])
     
     # Nếu không match tag nào, dùng default
     if not chat_ids:
+        print(f"   📌 No matching tags, using default")
         chat_ids.add(TAG_TO_CHAT_ID["default"])
     
     result = list(chat_ids)
-    logger.info("telegram_webhook", "target_chats_resolved", f"Target chat IDs: {result}")
+    print(f"   📍 Target chat IDs: {result}")
     return result
 
 
@@ -157,26 +167,9 @@ def send_message(text, chat_id=None):
         }
         try:
             res = requests.post(TELEGRAM_API, json=payload, timeout=5)
-            if res.status_code == 200:
-                logger.success(
-                    "telegram_webhook",
-                    "message_sent",
-                    f"Message sent to chat {chat_id}"
-                )
-            else:
-                logger.error(
-                    "telegram_webhook",
-                    "message_send_failed",
-                    f"Failed to send message to {chat_id}",
-                    extra={"status_code": res.status_code, "response": res.text[:200]}
-                )
+            print(f"   ✅ Message sent to {chat_id} (status: {res.status_code})")
         except Exception as e:
-            logger.error(
-                "telegram_webhook",
-                "message_send_error",
-                f"Error sending message to {chat_id}: {e}",
-                extra={"chat_id": chat_id, "error": str(e)}
-            )
+            print(f"   ❌ Error sending message to {chat_id}: {e}")
     
     thread = threading.Thread(target=_send)
     thread.daemon = True
@@ -185,7 +178,7 @@ def send_message(text, chat_id=None):
 
 def send_to_multiple_chats(text, chat_ids):
     """FIX: Gửi parallel đến nhiều chats"""
-    logger.info("telegram_webhook", "multi_chat_send", f"Sending to {len(chat_ids)} chats", extra={"chat_ids": chat_ids})
+    print(f"   📤 Sending to {len(chat_ids)} chats: {chat_ids}")
     
     threads = []
     for chat_id in chat_ids:
@@ -209,14 +202,14 @@ def get_task_info(task_id, force_refresh=False):
             cached_data, cached_time = _task_cache[task_id]
             now = datetime.datetime.now().timestamp()
             if now - cached_time < 60:  # Cache 60s
-                logger.info("telegram_webhook", "cache_hit", f"Using cached data for task {task_id}")
+                print(f"   💾 Using cached data for task {task_id}")
                 return cached_data
     
     url = f"https://api.clickup.com/api/v2/task/{task_id}"
     headers = {"Authorization": CLICKUP_API_TOKEN}
     
     try:
-        logger.info("telegram_webhook", "fetch_task", f"Fetching fresh data for task {task_id}")
+        print(f"   🔄 Fetching FRESH data for task {task_id}")
         response = requests.get(url, headers=headers, timeout=5)
         if response.status_code == 200:
             data = response.json()
@@ -227,26 +220,16 @@ def get_task_info(task_id, force_refresh=False):
             
             return data
         else:
-            logger.error(
-                "telegram_webhook",
-                "clickup_api_error",
-                f"ClickUp API error: {response.status_code}",
-                extra={"task_id": task_id, "status_code": response.status_code}
-            )
+            print(f"   ❌ ClickUp API error: {response.status_code}")
         return None
     except Exception as e:
-        logger.error(
-            "telegram_webhook",
-            "task_fetch_error",
-            f"Error getting task info: {e}",
-            extra={"task_id": task_id, "error": str(e)}
-        )
+        print(f"   ❌ Error getting task info: {e}")
         return None
 
 
 def get_all_tasks_in_period(start_date, end_date):
     if not CLICKUP_LIST_ID:
-        logger.error("telegram_webhook", "config_missing", "CLICKUP_LIST_ID not configured")
+        print("❌ CLICKUP_LIST_ID không được cấu hình!")
         return []
     
     url = f"https://api.clickup.com/api/v2/list/{CLICKUP_LIST_ID}/task"
@@ -257,7 +240,7 @@ def get_all_tasks_in_period(start_date, end_date):
     }
     
     try:
-        logger.info("telegram_webhook", "query_tasks", f"Querying tasks from list {CLICKUP_LIST_ID}")
+        print(f"\n🔍 Querying all tasks from List {CLICKUP_LIST_ID}...")
         response = requests.get(url, headers=headers, params=params, timeout=10)
         
         if response.status_code == 200:
@@ -275,28 +258,19 @@ def get_all_tasks_in_period(start_date, end_date):
                     if start_ms <= created_ms <= end_ms:
                         filtered_tasks.append(task)
             
-            logger.success(
-                "telegram_webhook",
-                "tasks_retrieved",
-                f"Found {len(filtered_tasks)}/{len(all_tasks)} tasks in period",
-                extra={"total": len(all_tasks), "filtered": len(filtered_tasks)}
-            )
+            print(f"✅ Found {len(filtered_tasks)}/{len(all_tasks)} tasks in period")
             return filtered_tasks
         else:
-            logger.error(
-                "telegram_webhook",
-                "clickup_api_error",
-                f"ClickUp API error: {response.status_code}"
-            )
+            print(f"❌ ClickUp API error: {response.status_code}")
             return []
     except Exception as e:
-        logger.error("telegram_webhook", "query_error", f"Error getting tasks: {e}")
+        print(f"❌ Error getting tasks: {e}")
         return []
 
 
 def get_today_tasks():
     if not CLICKUP_LIST_ID:
-        logger.error("telegram_webhook", "config_missing", "CLICKUP_LIST_ID not configured")
+        print("❌ CLICKUP_LIST_ID không được cấu hình!")
         return []
     
     url = f"https://api.clickup.com/api/v2/list/{CLICKUP_LIST_ID}/task"
@@ -312,13 +286,13 @@ def get_today_tasks():
         if response.status_code == 200:
             data = response.json()
             all_tasks = data.get("tasks", [])
-            logger.info("telegram_webhook", "tasks_fetched", f"Fetched {len(all_tasks)} tasks")
+            print(f"✅ Tìm thấy {len(all_tasks)} tasks")
             return all_tasks
         else:
-            logger.error("telegram_webhook", "clickup_api_error", f"ClickUp API error: {response.status_code}")
+            print(f"❌ ClickUp API error: {response.status_code}")
             return []
     except Exception as e:
-        logger.error("telegram_webhook", "fetch_error", f"Error getting tasks: {e}")
+        print(f"❌ Error getting tasks: {e}")
         return []
 
 
@@ -438,18 +412,18 @@ def get_priority_text(priority_data):
 def get_gsheet_client():
     try:
         if not GOOGLE_CREDENTIALS:
-            logger.error("telegram_webhook", "gsheet_config_missing", "GOOGLE_CREDENTIALS_JSON not found")
+            print("❌ Không có GOOGLE_CREDENTIALS_JSON")
             return None
         
         creds_dict = json.loads(GOOGLE_CREDENTIALS)
         credentials = Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
         client = gspread.authorize(credentials)
         
-        logger.success("telegram_webhook", "gsheet_connected", "Connected to Google Sheets")
+        print("✅ Connected to Google Sheet")
         return client
         
     except Exception as e:
-        logger.error("telegram_webhook", "gsheet_connection_error", f"Error connecting to Google Sheets: {e}")
+        print(f"❌ Error connecting to Google Sheet: {e}")
         return None
 
 
@@ -480,20 +454,11 @@ def backup_to_sheet(task_info):
             ]
             
             worksheet.append_row(row)
-            logger.success(
-                "telegram_webhook",
-                "gsheet_backup",
-                f"Backed up task to Google Sheets: {task_info.get('name')}"
-            )
+            print(f"✅ Backed up to Google Sheet: {task_info.get('name')}")
             return True
             
         except Exception as e:
-            logger.error(
-                "telegram_webhook",
-                "gsheet_backup_error",
-                f"Error backing up to Google Sheets: {e}",
-                extra={"task_name": task_info.get('name')}
-            )
+            print(f"❌ Error backup to sheet: {e}")
             return False
     
     thread = threading.Thread(target=_backup)
@@ -505,8 +470,6 @@ def generate_report(report_type="daily"):
     now = get_vn_now()
     today_display = now.strftime("%d/%m/%Y")
     time_display = now.strftime("%H:%M")
-    
-    logger.info("telegram_webhook", "report_generation", f"Generating {report_type} report")
     
     tasks = get_today_tasks()
     stats = analyze_tasks(tasks)
@@ -620,7 +583,6 @@ def generate_report(report_type="daily"):
             if week_stats['overdue'] > 0:
                 msg += f"\n   • Quá hạn: {week_stats['overdue']}"
     
-    logger.success("telegram_webhook", "report_generated", f"{report_type.capitalize()} report generated successfully")
     return msg
 
 
@@ -968,7 +930,7 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
 
 
 def generate_and_send_weekly_pdf():
-    logger.info("telegram_webhook", "weekly_report_start", "Generating weekly PDF report")
+    print(f"\n📊 Generating weekly report PDF...")
     
     now = get_vn_now()
     days_since_monday = now.weekday()
@@ -978,17 +940,17 @@ def generate_and_send_weekly_pdf():
     week_tasks = get_all_tasks_in_period(start_of_week, end_of_week)
     
     if not week_tasks:
-        logger.warning("telegram_webhook", "no_weekly_tasks", "No tasks found for this week")
+        print("   ⚠️  Không có tasks trong tuần này")
         return False
     
     week_stats = analyze_tasks(week_tasks)
-    logger.info("telegram_webhook", "weekly_analysis", f"Analyzed {len(week_tasks)} tasks")
+    print(f"   ✅ Analyzed {len(week_tasks)} tasks")
     
     html_content = generate_weekly_report_html(week_stats, start_of_week, end_of_week)
-    logger.success("telegram_webhook", "html_generated", "HTML report generated successfully")
+    print(f"   ✅ Generated HTML report")
     
     if not RENDER_API_KEY or not RENDER_API_URL:
-        logger.error("telegram_webhook", "render_config_missing", "RENDER_API_KEY or RENDER_API_URL not configured")
+        print("   ❌ RENDER_API_KEY hoặc RENDER_API_URL chưa được config!")
         return False
     
     render_url = f"{RENDER_API_URL}/render"
@@ -1005,11 +967,11 @@ def generate_and_send_weekly_pdf():
     }
     
     try:
-        logger.info("telegram_webhook", "render_api_call", "Calling RenderAPI to generate PDF")
+        print(f"   🔄 Calling RenderAPI...")
         response = requests.post(render_url, headers=headers, json=payload, timeout=30)
         
         if response.status_code == 200:
-            logger.success("telegram_webhook", "pdf_generated", "PDF generated successfully")
+            print(f"   ✅ PDF generated successfully")
             
             with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
                 tmp_file.write(response.content)
@@ -1032,22 +994,12 @@ def generate_and_send_weekly_pdf():
                         tg_response = requests.post(telegram_url, files=files, data=data, timeout=30)
                         
                         if tg_response.status_code == 200:
-                            logger.success("telegram_webhook", "pdf_sent", f"PDF sent to chat {chat_id}")
+                            print(f"   ✅ Sent PDF to {chat_id}")
                         else:
-                            logger.error(
-                                "telegram_webhook",
-                                "pdf_send_failed",
-                                f"Failed to send PDF to {chat_id}",
-                                extra={"status_code": tg_response.status_code}
-                            )
+                            print(f"   ❌ Failed to send to {chat_id}: {tg_response.text}")
                 
                 except Exception as e:
-                    logger.error(
-                        "telegram_webhook",
-                        "pdf_send_error",
-                        f"Error sending PDF to {chat_id}: {e}",
-                        extra={"chat_id": chat_id}
-                    )
+                    print(f"   ❌ Error sending to {chat_id}: {e}")
             
             try:
                 os.unlink(pdf_path)
@@ -1057,16 +1009,12 @@ def generate_and_send_weekly_pdf():
             return True
             
         else:
-            logger.error(
-                "telegram_webhook",
-                "render_api_error",
-                f"RenderAPI error: {response.status_code}",
-                extra={"response": response.text[:200]}
-            )
+            print(f"   ❌ RenderAPI error: {response.status_code}")
+            print(f"   Response: {response.text}")
             return False
     
     except Exception as e:
-        logger.error("telegram_webhook", "pdf_generation_error", f"Error generating PDF: {e}")
+        print(f"   ❌ Error calling RenderAPI: {e}")
         return False
 
 
@@ -1079,13 +1027,11 @@ def telegram_handler():
         text = message.get("text", "")
         
         if text == "/report_eod":
-            logger.info("telegram_webhook", "command_received", "EOD report command triggered")
             msg = generate_report("evening")
             all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
             send_to_multiple_chats(msg, all_chat_ids)
         
         elif text == "/report_now":
-            logger.info("telegram_webhook", "command_received", "Instant report command triggered")
             msg = generate_report("daily")
             all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
             send_to_multiple_chats(msg, all_chat_ids)
@@ -1095,32 +1041,32 @@ def telegram_handler():
 
 @app.route('/clickup', methods=['POST', 'GET'])
 def clickup_webhook():
+    print("\n" + "="*60)
+    print("📥 CLICKUP WEBHOOK RECEIVED")
+    print(f"⏰ Time (VN): {get_vn_now().strftime('%H:%M:%S %d/%m/%Y')}")
+    print("="*60)
+    
     data = request.get_json()
     
-    # GHI RAW DATA VÀO FILE ĐỂ DEBUG (GIỮ NGUYÊN)
     try:
         with open('clickup_data.json', 'a', encoding='utf-8') as f:
             f.write(json.dumps(data, indent=2, ensure_ascii=False))
             f.write("\n\n" + "="*60 + "\n\n")
     except Exception as e:
-        logger.error("telegram_webhook", "raw_data_log_error", f"Error writing raw webhook data: {e}")
+        print(f"❌ Error logging: {e}")
     
     event = data.get("event", "")
     history_items = data.get("history_items", [])
     task_id = data.get("task_id", "")
     
-    logger.info(
-        "telegram_webhook",
-        "webhook_received",
-        f"ClickUp webhook received: {event}",
-        extra={"event": event, "task_id": task_id}
-    )
+    print(f"🎯 Event: {event}")
+    print(f"📋 Task ID: {task_id}")
     
     # CRITICAL FIX: Luôn force refresh để lấy data mới nhất
     task_data = get_task_info(task_id, force_refresh=True)
     
     if not task_data:
-        logger.error("telegram_webhook", "task_data_missing", f"Cannot get task data for {task_id}")
+        print("❌ Cannot get task data, skipping...")
         return {"ok": True}, 200
     
     # Get tags và ALL chat IDs
@@ -1186,12 +1132,6 @@ def clickup_webhook():
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
         send_to_multiple_chats(msg.strip(), target_chat_ids)
-        logger.success(
-            "telegram_webhook",
-            "task_created_notified",
-            f"Task created notification sent: {task_name}",
-            extra={"task_id": task_id, "chat_ids": target_chat_ids}
-        )
     
     elif event == "taskUpdated":
         # Check tag changes FIRST
@@ -1202,7 +1142,7 @@ def clickup_webhook():
                 after = item.get("after", {})
                 tag_name = after.get("name", "Unknown") if isinstance(after, dict) else "Unknown"
                 
-                logger.info("telegram_webhook", "tag_added", f"Tag added to task: {tag_name}")
+                print(f"\n🏷️  TAG ADDED: {tag_name}")
                 
                 # FIX: Lấy lại task data để có tags mới nhất
                 fresh_task_data = get_task_info(task_id, force_refresh=True)
@@ -1223,13 +1163,14 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
+                    # Gửi đến TẤT CẢ chats tương ứng với tags hiện tại
                     send_to_multiple_chats(msg.strip(), new_chat_ids)
             
             elif field == "tag_removed":
                 before = item.get("before", {})
                 tag_name = before.get("name", "Unknown") if isinstance(before, dict) else "Unknown"
                 
-                logger.info("telegram_webhook", "tag_removed", f"Tag removed from task: {tag_name}")
+                print(f"\n🏷️  TAG REMOVED: {tag_name}")
                 
                 msg = f"""
 🏷️ <b>XÓA TAG</b>
@@ -1241,6 +1182,7 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
+                # Vẫn gửi đến các chats của tags còn lại
                 send_to_multiple_chats(msg.strip(), target_chat_ids)
         
         # Check other updates
@@ -1254,7 +1196,7 @@ def clickup_webhook():
                 old_status = before.get("status", "Không rõ") if isinstance(before, dict) else "Không rõ"
                 new_status = after.get("status", "Không rõ") if isinstance(after, dict) else "Không rõ"
                 
-                logger.info("telegram_webhook", "status_changed", f"Status: {old_status} → {new_status}")
+                print(f"📊 Status changed: {old_status} → {new_status}")
                 
                 if new_status.lower() in ["complete", "completed", "closed", "done", "achevé"]:
                     completion_status = ""
@@ -1286,7 +1228,7 @@ def clickup_webhook():
                                 time_diff_msg = f"\n⏰ Còn {int(hours_diff)} giờ {int((hours_diff % 1) * 60)} phút đến deadline"
                                 completion_status = "\n✅ <b>HOÀN THÀNH ĐÚNG TIẾN ĐỘ!</b> 👏"
                         except Exception as e:
-                            logger.error("telegram_webhook", "time_calc_error", f"Error calculating time difference: {e}")
+                            print(f"❌ Error calculating time diff: {e}")
                     else:
                         completion_status = "\n✅ <b>HOÀN THÀNH!</b>"
                     
@@ -1309,11 +1251,6 @@ def clickup_webhook():
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
                     send_to_multiple_chats(msg.strip(), target_chat_ids)
-                    logger.success(
-                        "telegram_webhook",
-                        "task_completed_notified",
-                        f"Task completion notification sent: {task_name}"
-                    )
                     
                     duration_str = calculate_duration(date_created) if date_created else ""
                     on_time_status = "Không xác định"
@@ -1356,7 +1293,7 @@ def clickup_webhook():
                 after = item.get("after", {})
                 new_assignee = after.get("username", "Không rõ") if isinstance(after, dict) else "Không rõ"
                 
-                logger.info("telegram_webhook", "assignee_added", f"Assignee added: {new_assignee}")
+                print(f"👤 Assignee added: {new_assignee}")
                 
                 overdue_warning = ""
                 if is_overdue:
@@ -1379,7 +1316,7 @@ def clickup_webhook():
                 before = item.get("before", {})
                 removed_assignee = before.get("username", "Không rõ") if isinstance(before, dict) else "Không rõ"
                 
-                logger.info("telegram_webhook", "assignee_removed", f"Assignee removed: {removed_assignee}")
+                print(f"👤 Assignee removed: {removed_assignee}")
                 
                 msg = f"""
 👤 <b>XÓA PHÂN CÔNG</b>
@@ -1397,7 +1334,7 @@ def clickup_webhook():
                 after = item.get("after", {})
                 new_due = format_timestamp(after) if after else "Không có"
                 
-                logger.info("telegram_webhook", "deadline_changed", f"Deadline changed to: {new_due}")
+                print(f"📅 Deadline changed to: {new_due}")
                 
                 msg = f"""
 📅 <b>THAY ĐỔI DEADLINE</b>
@@ -1414,7 +1351,7 @@ def clickup_webhook():
                 send_to_multiple_chats(msg.strip(), target_chat_ids)
     
     elif event == "taskDeleted":
-        logger.info("telegram_webhook", "task_deleted", f"Task deleted: {task_name}")
+        print(f"🗑️  Task deleted: {task_name}")
         
         msg = f"""
 🗑️ <b>TASK ĐÃ BỊ XÓA</b>
@@ -1440,7 +1377,7 @@ def clickup_webhook():
         if len(comment_text) > 200:
             comment_text = comment_text[:200] + "..."
         
-        logger.info("telegram_webhook", "comment_posted", f"Comment posted by {action_user}")
+        print(f"💬 Comment posted by {action_user}")
         
         msg = f"""
 💬 <b>COMMENT MỚI</b>
@@ -1455,6 +1392,7 @@ def clickup_webhook():
 """
         send_to_multiple_chats(msg.strip(), target_chat_ids)
     
+    print("="*60 + "\n")
     return {"ok": True}, 200
 
 
@@ -1462,13 +1400,12 @@ def clickup_webhook():
 def home():
     return jsonify({
         "status": "running",
-        "service": "ClickUp → Telegram Webhook (Refactored v1.3)",
+        "service": "ClickUp → Telegram Webhook (Fixed Multi-chat)",
         "version": "2.1",
         "features": [
             "✅ Multi-chat support for multiple tags",
             "✅ Real-time updates (no cache)",
             "✅ Parallel message sending",
-            "✅ Unified logging to automation_log.json",
             "✅ Fixed tag_added/removed events"
         ],
         "tag_mappings": TAG_TO_CHAT_ID,
@@ -1481,14 +1418,14 @@ def trigger_morning_report():
     if request.method == 'HEAD':
         return '', 200
     
-    logger.info("telegram_webhook", "morning_report_triggered", "Morning report endpoint called")
+    print(f"\n🌅 Morning report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("morning")
         all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
         send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
     except Exception as e:
-        logger.error("telegram_webhook", "morning_report_error", f"Error generating morning report: {e}")
+        print(f"❌ Error: {e}")
         return 'ER', 500
 
 
@@ -1497,14 +1434,14 @@ def trigger_noon_report():
     if request.method == 'HEAD':
         return '', 200
     
-    logger.info("telegram_webhook", "noon_report_triggered", "Noon report endpoint called")
+    print(f"\n☀️ Noon report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("noon")
         all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
         send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
     except Exception as e:
-        logger.error("telegram_webhook", "noon_report_error", f"Error generating noon report: {e}")
+        print(f"❌ Error: {e}")
         return 'ER', 500
 
 
@@ -1513,14 +1450,14 @@ def trigger_evening_report():
     if request.method == 'HEAD':
         return '', 200
     
-    logger.info("telegram_webhook", "evening_report_triggered", "Evening report endpoint called")
+    print(f"\n🌙 Evening report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     try:
         msg = generate_report("evening")
         all_chat_ids = list(set(TAG_TO_CHAT_ID.values()))
         send_to_multiple_chats(msg, all_chat_ids)
         return 'OK', 200
     except Exception as e:
-        logger.error("telegram_webhook", "evening_report_error", f"Error generating evening report: {e}")
+        print(f"❌ Error: {e}")
         return 'ER', 500
 
 
@@ -1529,7 +1466,7 @@ def trigger_weekly_report():
     if request.method == 'HEAD':
         return '', 200
     
-    logger.info("telegram_webhook", "weekly_report_triggered", "Weekly report endpoint called")
+    print(f"\n📊 Weekly report triggered at {get_vn_now().strftime('%H:%M:%S')}")
     
     try:
         success = generate_and_send_weekly_pdf()
@@ -1546,7 +1483,7 @@ def trigger_weekly_report():
             }), 500
     
     except Exception as e:
-        logger.error("telegram_webhook", "weekly_report_error", f"Error in weekly report: {e}")
+        print(f"❌ Error: {e}")
         return jsonify({
             "status": "error",
             "message": str(e)
@@ -1562,13 +1499,13 @@ def trigger_deadline_warning():
     if request.method == 'HEAD':
         return '', 200
     
-    logger.info("telegram_webhook", "deadline_warning_triggered", "Deadline warning check started")
+    print(f"\n⚠️ Deadline warning check triggered at {get_vn_now().strftime('%H:%M:%S')}")
     
     try:
         tasks = get_today_tasks()
         
         if not tasks:
-            logger.info("telegram_webhook", "no_tasks_to_check", "No tasks found for deadline check")
+            print("   ℹ️  No tasks found")
             return 'OK', 200
         
         now_vn = get_vn_now()
@@ -1634,27 +1571,17 @@ def trigger_deadline_warning():
 """
                     send_to_multiple_chats(msg.strip(), target_chat_ids)
                     warnings_sent += 1
-                    logger.success(
-                        "telegram_webhook",
-                        "deadline_warning_sent",
-                        f"Warning sent for task: {task_name}",
-                        extra={"task_name": task_name, "hours_left": int(hours_left)}
-                    )
+                    print(f"   ✅ Warning sent for task: {task_name} (due tomorrow)")
             
             except Exception as e:
-                logger.error(
-                    "telegram_webhook",
-                    "deadline_check_error",
-                    f"Error processing task deadline: {e}",
-                    extra={"task_id": task.get('id')}
-                )
+                print(f"   ❌ Error processing task: {e}")
                 continue
         
-        logger.info("telegram_webhook", "deadline_check_completed", f"Sent {warnings_sent} deadline warnings")
+        print(f"   📊 Total warnings sent: {warnings_sent}")
         return 'OK', 200
     
     except Exception as e:
-        logger.error("telegram_webhook", "deadline_warning_error", f"Error in deadline warning: {e}")
+        print(f"❌ Error: {e}")
         return 'ER', 500
 
 
@@ -1667,10 +1594,8 @@ def setup_webhook():
     result = response.json()
     
     if result.get("ok"):
-        logger.success("telegram_webhook", "webhook_setup", f"Webhook set successfully: {telegram_webhook}")
         return f"✅ Webhook đã được set thành công!<br>URL: {telegram_webhook}<br>Response: {result}", 200
     else:
-        logger.error("telegram_webhook", "webhook_setup_failed", f"Failed to set webhook: {result}")
         return f"❌ Lỗi set webhook!<br>Response: {result}", 500
 
 
@@ -1689,32 +1614,26 @@ def test_multi_tag():
         "matched_chat_ids": chat_ids,
         "expected": [TAG_TO_CHAT_ID["admin"], TAG_TO_CHAT_ID["content"]],
         "success": len(chat_ids) == 2
-    })
-
-
-@app.route('/logs')
-def logs():
-    """View recent logs with filters"""
-    limit = request.args.get('limit', 50, type=int)
-    level = request.args.get('level')  # INFO, ERROR, SUCCESS, WARNING
-    service = request.args.get('service', 'telegram_webhook')
-    
-    logs = logger.get_recent_logs(limit=limit, level=level, service=service)
-    stats = logger.get_stats()
-    
-    return jsonify({
-        "logs": logs,
-        "stats": stats,
-        "query": {"limit": limit, "level": level, "service": service}
-    })
+    }), 200
 
 
 if __name__ == '__main__':
-    logger.info("system", "startup", "🚀 ClickUp → Telegram Webhook Service v2.1 (Refactored)")
-    logger.info("system", "config_summary", "Multi-chat support enabled", extra={
-        "tag_mappings": TAG_TO_CHAT_ID,
-        "cache_mode": "DISABLED" if not CACHE_ENABLED else "ENABLED"
-    })
+    print("\n" + "="*60)
+    print("🚀 ClickUp → Telegram Webhook Service v2.1 (FIXED)")
+    print("="*60)
+    print("✅ FIXES APPLIED:")
+    print("   1. Multi-chat support - gửi đến TẤT CẢ chats có tag")
+    print("   2. Real-time mode - không dùng cache khi update")
+    print("   3. Force refresh - luôn lấy data mới nhất")
+    print("   4. Parallel sending - gửi đồng thời nhiều chats")
+    print("="*60)
+    print(f"📍 Tag Mappings:")
+    for tag, chat_id in TAG_TO_CHAT_ID.items():
+        print(f"   - {tag:10s}: {chat_id}")
+    print(f"💾 Cache Mode: {'ENABLED' if CACHE_ENABLED else 'DISABLED (Real-time)'}")
+    print("="*60)
+    print("🧪 Test endpoint: /test_multi_tag")
+    print("="*60 + "\n")
     
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
