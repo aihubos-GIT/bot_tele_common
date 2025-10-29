@@ -1,7 +1,7 @@
 import requests
 import json
 
-API_TOKEN = "pk_294795597_TB7AOYRR9FHKJ0BADCCUEZ42J7NDJ0N9"
+API_TOKEN = "pk_294795597_MWJJI41L9W1WK2CJFBBFRX6DYG5MTWY8"
 TEAM_ID = "90181891084"
 
 url = f"https://api.clickup.com/api/v2/team/{TEAM_ID}/webhook"
