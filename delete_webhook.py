@@ -1,7 +1,7 @@
 import requests
 
 # 🔑 Token của mày
-TOKEN = "pk_294795597_C31FSQB1CBO1HI8OD4TJUAA58QDC9TAH"
+TOKEN = "pk_294795597_PMZI1OP0EZMU8O3QI4CVF9BKGQIIU1AB"
 
 # 🧱 Danh sách webhook cần xoá
 WEBHOOK_IDS = [
