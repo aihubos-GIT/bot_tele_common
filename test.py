@@ -1,7 +1,7 @@
 import requests
 
 # Thay token của bạn vào đây
-TOKEN = "pk_294795597_PMZI1OP0EZMU8O3QI4CVF9BKGQIIU1AB"
+TOKEN = "pk_294795597_CM70JSWJA7D4MB6LOK41VXE982CPVUW1"
 
 headers = {
     "Authorization": TOKEN,
