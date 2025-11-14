@@ -39,7 +39,7 @@ SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
 
 VN_TZ = pytz.timezone('Asia/Ho_Chi_Minh')
 
-# CRITICAL: Tắt cache để đảm bảo real-time
+# Cache disabled for real-time
 _task_cache = {}
 CACHE_ENABLED = False
 
@@ -113,13 +113,12 @@ def calculate_duration(start_timestamp):
 
 def get_all_chat_ids_from_tags(tags):
     """
-    FIX CHÍNH: Trả về DANH SÁCH chat IDs thay vì 1 chat duy nhất
-    Ví dụ: tags = ["admin", "content"] → return ["-1003086591861", "-1003036322284"]
+    Trả về DANH SÁCH chat IDs thay vì 1 chat duy nhất
     """
     if not tags:
         return [TAG_TO_CHAT_ID["default"]]
     
-    chat_ids = set()  # Dùng set để tránh duplicate
+    chat_ids = set()
     
     tag_names = []
     for tag in tags:
@@ -130,7 +129,6 @@ def get_all_chat_ids_from_tags(tags):
     
     print(f"🏷️  Processing tags: {tag_names}")
     
-    # Duyệt qua TẤT CẢ tags, không return sớm
     for tag_name in tag_names:
         if "content" in tag_name:
             print(f"   ✅ Matched CONTENT tag: {tag_name}")
@@ -144,7 +142,6 @@ def get_all_chat_ids_from_tags(tags):
             print(f"   ✅ Matched ADMIN tag: {tag_name}")
             chat_ids.add(TAG_TO_CHAT_ID["admin"])
     
-    # Nếu không match tag nào, dùng default
     if not chat_ids:
         print(f"   📌 No matching tags, using default")
         chat_ids.add(TAG_TO_CHAT_ID["default"])
@@ -155,7 +152,7 @@ def get_all_chat_ids_from_tags(tags):
 
 
 def send_message(text, chat_id=None):
-    """Gửi message async để không block"""
+    """Gửi message async"""
     if chat_id is None:
         chat_id = CHAT_ID
     
@@ -177,7 +174,7 @@ def send_message(text, chat_id=None):
 
 
 def send_to_multiple_chats(text, chat_ids):
-    """FIX: Gửi parallel đến nhiều chats"""
+    """Gửi parallel đến nhiều chats"""
     print(f"   📤 Sending to {len(chat_ids)} chats: {chat_ids}")
     
     threads = []
@@ -187,21 +184,17 @@ def send_to_multiple_chats(text, chat_ids):
         thread.start()
         threads.append(thread)
     
-    # Đợi tất cả threads hoàn thành (với timeout)
     for thread in threads:
         thread.join(timeout=3)
 
 
 def get_task_info(task_id, force_refresh=False):
-    """
-    FIX: Thêm flag force_refresh để bắt buộc lấy data mới
-    """
-    # Kiểm tra cache (chỉ khi CACHE_ENABLED=True và không force_refresh)
+    """Get task info with optional force refresh"""
     if CACHE_ENABLED and not force_refresh:
         if task_id in _task_cache:
             cached_data, cached_time = _task_cache[task_id]
             now = datetime.datetime.now().timestamp()
-            if now - cached_time < 60:  # Cache 60s
+            if now - cached_time < 60:
                 print(f"   💾 Using cached data for task {task_id}")
                 return cached_data
     
@@ -214,7 +207,6 @@ def get_task_info(task_id, force_refresh=False):
         if response.status_code == 200:
             data = response.json()
             
-            # Save to cache
             if CACHE_ENABLED:
                 _task_cache[task_id] = (data, datetime.datetime.now().timestamp())
             
@@ -228,6 +220,7 @@ def get_task_info(task_id, force_refresh=False):
 
 
 def get_all_tasks_in_period(start_date, end_date):
+    """FIX: Lấy cả subtasks"""
     if not CLICKUP_LIST_ID:
         print("❌ CLICKUP_LIST_ID không được cấu hình!")
         return []
@@ -236,11 +229,12 @@ def get_all_tasks_in_period(start_date, end_date):
     headers = {"Authorization": CLICKUP_API_TOKEN}
     params = {
         "archived": "false",
-        "include_closed": "true"
+        "include_closed": "true",
+        "subtasks": "true"  # FIX: Lấy cả subtasks
     }
     
     try:
-        print(f"\n🔍 Querying all tasks from List {CLICKUP_LIST_ID}...")
+        print(f"\n🔍 Querying all tasks + subtasks from List {CLICKUP_LIST_ID}...")
         response = requests.get(url, headers=headers, params=params, timeout=10)
         
         if response.status_code == 200:
@@ -269,6 +263,7 @@ def get_all_tasks_in_period(start_date, end_date):
 
 
 def get_today_tasks():
+    """FIX: Lấy cả subtasks"""
     if not CLICKUP_LIST_ID:
         print("❌ CLICKUP_LIST_ID không được cấu hình!")
         return []
@@ -277,7 +272,8 @@ def get_today_tasks():
     headers = {"Authorization": CLICKUP_API_TOKEN}
     params = {
         "archived": "false",
-        "include_closed": "true"
+        "include_closed": "true",
+        "subtasks": "true"  # FIX: Lấy cả subtasks
     }
     
     try:
@@ -286,7 +282,7 @@ def get_today_tasks():
         if response.status_code == 200:
             data = response.json()
             all_tasks = data.get("tasks", [])
-            print(f"✅ Tìm thấy {len(all_tasks)} tasks")
+            print(f"✅ Tìm thấy {len(all_tasks)} tasks (bao gồm subtasks)")
             return all_tasks
         else:
             print(f"❌ ClickUp API error: {response.status_code}")
@@ -306,6 +302,7 @@ def get_week_tasks():
 
 
 def analyze_tasks(tasks):
+    """FIX: Phân biệt parent tasks và subtasks"""
     stats = {
         'total': len(tasks),
         'completed': 0,
@@ -313,6 +310,8 @@ def analyze_tasks(tasks):
         'overdue': 0,
         'unassigned': 0,
         'in_progress': 0,
+        'parent_tasks': 0,  # NEW
+        'subtasks': 0,      # NEW
         'by_user': {},
         'by_priority': {
             'urgent': 0,
@@ -323,6 +322,13 @@ def analyze_tasks(tasks):
     }
     
     for task in tasks:
+        # FIX: Phân biệt parent vs subtask
+        parent_id = task.get('parent')
+        if parent_id:
+            stats['subtasks'] += 1
+        else:
+            stats['parent_tasks'] += 1
+        
         status_info = task.get('status', {})
         status = status_info.get('status', '').lower() if isinstance(status_info, dict) else ''
         
@@ -355,10 +361,18 @@ def analyze_tasks(tasks):
                         'pending': 0, 
                         'overdue': 0,
                         'in_progress': 0,
-                        'total': 0
+                        'total': 0,
+                        'subtasks': 0,      # NEW
+                        'parent_tasks': 0   # NEW
                     }
                 
                 stats['by_user'][username]['total'] += 1
+                
+                # FIX: Đếm parent/subtask cho từng user
+                if parent_id:
+                    stats['by_user'][username]['subtasks'] += 1
+                else:
+                    stats['by_user'][username]['parent_tasks'] += 1
                 
                 if is_completed:
                     stats['by_user'][username]['completed'] += 1
@@ -428,7 +442,7 @@ def get_gsheet_client():
 
 
 def backup_to_sheet(task_info):
-    """Backup async để không block"""
+    """Backup async"""
     def _backup():
         try:
             client = get_gsheet_client()
@@ -467,6 +481,7 @@ def backup_to_sheet(task_info):
 
 
 def generate_report(report_type="daily"):
+    """FIX: Hiển thị thống kê subtasks"""
     now = get_vn_now()
     today_display = now.strftime("%d/%m/%Y")
     time_display = now.strftime("%H:%M")
@@ -498,7 +513,10 @@ def generate_report(report_type="daily"):
     if stats['total'] == 0:
         msg += f"\n⚠️ Chưa có task nào trong List"
     else:
+        # FIX: Thêm thống kê subtasks
         msg += f"\n📋 <b>Tổng tasks:</b> {stats['total']}"
+        msg += f"\n   ├─ 📁 Parent tasks: {stats['parent_tasks']}"
+        msg += f"\n   └─ 📝 Subtasks: {stats['subtasks']}"
         msg += f"\n✅ <b>Đã hoàn thành:</b> {stats['completed']} (<b>{kpi:.1f}%</b>)"
         
         if stats['in_progress'] > 0:
@@ -535,7 +553,10 @@ def generate_report(report_type="daily"):
                 else:
                     icon = "🔴"
                 
+                # FIX: Hiển thị parent/subtask
                 msg += f"\n   {icon} <b>{username}</b>: {user_stats['completed']}/{user_stats['total']} (<b>{user_kpi:.0f}%</b>)"
+                msg += f"\n      ├─ 📁 Parent: {user_stats['parent_tasks']}"
+                msg += f"\n      └─ 📝 Subtasks: {user_stats['subtasks']}"
                 
                 if user_stats.get('in_progress', 0) > 0:
                     msg += f" - 🔄 {user_stats['in_progress']} đang làm"
@@ -575,8 +596,8 @@ def generate_report(report_type="daily"):
             week_stats = analyze_tasks(week_tasks)
             kpi_week = (week_stats['completed'] / week_stats['total'] * 100) if week_stats['total'] > 0 else 0
             
-            msg += f"\n\n📅 <b>KPI TUẦN NÀY (Tasks mới tạo):</b>"
-            msg += f"\n   • Tổng: {week_stats['total']}"
+            msg += f"\n\n📅 <b>KPI TUẦN NÀY:</b>"
+            msg += f"\n   • Tổng: {week_stats['total']} (Parent: {week_stats['parent_tasks']}, Subtasks: {week_stats['subtasks']})"
             msg += f"\n   • Hoàn thành: {week_stats['completed']} (<b>{kpi_week:.1f}%</b>)"
             msg += f"\n   • Còn lại: {week_stats['pending']}"
             
@@ -587,6 +608,7 @@ def generate_report(report_type="daily"):
 
 
 def generate_weekly_report_html(week_stats, start_date, end_date):
+    """FIX: Thêm thống kê subtasks vào weekly report"""
     now = get_vn_now()
     
     kpi = (week_stats['completed'] / week_stats['total'] * 100) if week_stats['total'] > 0 else 0
@@ -619,6 +641,8 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
             <tr class="{kpi_class}">
                 <td>{icon} <strong>{username}</strong></td>
                 <td>{user_stats['total']}</td>
+                <td>{user_stats['parent_tasks']}</td>
+                <td>{user_stats['subtasks']}</td>
                 <td>{user_stats['completed']}</td>
                 <td>{user_stats['pending']}</td>
                 <td>{user_stats.get('in_progress', 0)}</td>
@@ -648,7 +672,7 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
                 padding: 20px;
             }}
             .container {{
-                max-width: 900px;
+                max-width: 1100px;
                 margin: 0 auto;
                 background: #E9D9C5;
             }}
@@ -677,7 +701,7 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
             }}
             .summary {{
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
                 gap: 20px;
                 margin-bottom: 30px;
             }}
@@ -695,20 +719,20 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
             }}
             .summary-card h3 {{
                 margin: 0 0 15px 0;
-                font-size: 14px;
+                font-size: 13px;
                 color: #7A3F30;
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 font-weight: 600;
             }}
             .summary-card .value {{
-                font-size: 42px;
+                font-size: 38px;
                 font-weight: 700;
                 color: #D4A459;
                 margin-bottom: 8px;
             }}
             .summary-card .label {{
-                font-size: 13px;
+                font-size: 12px;
                 color: #7A3F30;
                 opacity: 0.8;
             }}
@@ -757,17 +781,18 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
             th {{
                 background: #0F1330;
                 color: #D4A459;
-                padding: 16px;
+                padding: 14px 10px;
                 text-align: left;
                 font-weight: 600;
-                font-size: 14px;
+                font-size: 12px;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
             }}
             td {{
-                padding: 14px 16px;
+                padding: 12px 10px;
                 border-bottom: 1px solid #E9D9C5;
                 color: #7A3F30;
+                font-size: 13px;
             }}
             tr:hover {{
                 background: #f9f6f2;
@@ -785,7 +810,7 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
                 background: #fce4e4;
             }}
             .kpi-cell {{
-                font-size: 17px;
+                font-size: 16px;
                 font-weight: 700;
                 color: #D4A459;
             }}
@@ -854,17 +879,22 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
                 <div class="summary-card">
                     <h3>Tổng Tasks</h3>
                     <div class="value">{week_stats['total']}</div>
-                    <div class="label">Tasks trong tuần</div>
+                    <div class="label">Parent + Subtasks</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Parent Tasks</h3>
+                    <div class="value">{week_stats['parent_tasks']}</div>
+                    <div class="label">Tasks chính</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Subtasks</h3>
+                    <div class="value">{week_stats['subtasks']}</div>
+                    <div class="label">Công việc chi tiết</div>
                 </div>
                 <div class="summary-card">
                     <h3>Hoàn Thành</h3>
                     <div class="value">{week_stats['completed']}</div>
                     <div class="label">{kpi:.1f}% KPI</div>
-                </div>
-                <div class="summary-card">
-                    <h3>Chưa Xong</h3>
-                    <div class="value">{week_stats['pending']}</div>
-                    <div class="label">{week_stats.get('in_progress', 0)} đang làm</div>
                 </div>
             </div>
 
@@ -905,6 +935,8 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
                     <tr>
                         <th>Người thực hiện</th>
                         <th>Tổng</th>
+                        <th>Parent</th>
+                        <th>Subtasks</th>
                         <th>Hoàn thành</th>
                         <th>Còn lại</th>
                         <th>Đang làm</th>
@@ -918,8 +950,8 @@ def generate_weekly_report_html(week_stats, start_date, end_date):
             </table>
 
             <div class="footer">
-                <p><strong>AIHubOS Automation System v2.1</strong></p>
-                <p>🤖 Báo cáo tự động - Multi-chat support</p>
+                <p><strong>AIHubOS Automation System v2.2</strong></p>
+                <p>🤖 Báo cáo tự động - Hỗ trợ thống kê Subtasks</p>
             </div>
         </div>
     </body>
@@ -944,7 +976,7 @@ def generate_and_send_weekly_pdf():
         return False
     
     week_stats = analyze_tasks(week_tasks)
-    print(f"   ✅ Analyzed {len(week_tasks)} tasks")
+    print(f"   ✅ Analyzed {len(week_tasks)} tasks (Parent: {week_stats['parent_tasks']}, Subtasks: {week_stats['subtasks']})")
     
     html_content = generate_weekly_report_html(week_stats, start_of_week, end_of_week)
     print(f"   ✅ Generated HTML report")
@@ -987,7 +1019,7 @@ def generate_and_send_weekly_pdf():
                         files = {'document': (filename, pdf_file, 'application/pdf')}
                         data = {
                             'chat_id': chat_id,
-                            'caption': f'📊 <b>BÁO CÁO TUẦN</b>\n\nTuần: {start_of_week.strftime("%d/%m")} - {end_of_week.strftime("%d/%m/%Y")}\n✅ Hoàn thành: {week_stats["completed"]}/{week_stats["total"]} tasks',
+                            'caption': f'📊 <b>BÁO CÁO TUẦN</b>\n\nTuần: {start_of_week.strftime("%d/%m")} - {end_of_week.strftime("%d/%m/%Y")}\n✅ Hoàn thành: {week_stats["completed"]}/{week_stats["total"]} tasks\n📁 Parent: {week_stats["parent_tasks"]} | 📝 Subtasks: {week_stats["subtasks"]}',
                             'parse_mode': 'HTML'
                         }
                         
@@ -1062,20 +1094,22 @@ def clickup_webhook():
     print(f"🎯 Event: {event}")
     print(f"📋 Task ID: {task_id}")
     
-    # CRITICAL FIX: Luôn force refresh để lấy data mới nhất
     task_data = get_task_info(task_id, force_refresh=True)
     
     if not task_data:
         print("❌ Cannot get task data, skipping...")
         return {"ok": True}, 200
     
-    # Get tags và ALL chat IDs
     tags = task_data.get("tags", [])
     target_chat_ids = get_all_chat_ids_from_tags(tags)
     
-    # Task info
     task_name = task_data.get("name", "Không rõ")
     task_url = task_data.get("url", "")
+    
+    # FIX: Thêm thông tin parent task
+    parent_id = task_data.get("parent")
+    is_subtask = parent_id is not None
+    task_type = "📝 Subtask" if is_subtask else "📁 Parent Task"
     
     status_info = task_data.get("status", {})
     status = status_info.get("status", "Không rõ") if isinstance(status_info, dict) else "Không rõ"
@@ -1122,6 +1156,7 @@ def clickup_webhook():
         msg = f"""
 🆕 <b>TASK MỚI ĐƯỢC TẠO</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 👤 Người tạo: <b>{creator_name}</b>
 👥 Phân công: <b>{assignees_text}</b>
@@ -1134,7 +1169,6 @@ def clickup_webhook():
         send_to_multiple_chats(msg.strip(), target_chat_ids)
     
     elif event == "taskUpdated":
-        # Check tag changes FIRST
         for item in history_items:
             field = item.get("field", "")
             
@@ -1144,7 +1178,6 @@ def clickup_webhook():
                 
                 print(f"\n🏷️  TAG ADDED: {tag_name}")
                 
-                # FIX: Lấy lại task data để có tags mới nhất
                 fresh_task_data = get_task_info(task_id, force_refresh=True)
                 if fresh_task_data:
                     new_tags = fresh_task_data.get("tags", [])
@@ -1153,6 +1186,7 @@ def clickup_webhook():
                     msg = f"""
 🏷️ <b>THÊM TAG</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 🔖 Tag mới: <b>{tag_name}</b>
 👤 Người thêm: <b>{action_user}</b>
@@ -1163,7 +1197,6 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                    # Gửi đến TẤT CẢ chats tương ứng với tags hiện tại
                     send_to_multiple_chats(msg.strip(), new_chat_ids)
             
             elif field == "tag_removed":
@@ -1175,6 +1208,7 @@ def clickup_webhook():
                 msg = f"""
 🏷️ <b>XÓA TAG</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 🔖 Tag đã xóa: <b>{tag_name}</b>
 👤 Người xóa: <b>{action_user}</b>
@@ -1182,10 +1216,8 @@ def clickup_webhook():
 ━━━━━━━━━━━━━━━━━━━━
 🔗 <a href="{task_url}">Xem chi tiết</a>
 """
-                # Vẫn gửi đến các chats của tags còn lại
                 send_to_multiple_chats(msg.strip(), target_chat_ids)
         
-        # Check other updates
         for item in history_items:
             field = item.get("field", "")
             
@@ -1241,6 +1273,7 @@ def clickup_webhook():
                     msg = f"""
 ✅ <b>TASK HOÀN THÀNH</b>{completion_status}
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 👤 Người hoàn thành: <b>{action_user}</b>
 👥 Đã phân công cho: <b>{assignees_text}</b>
@@ -1279,6 +1312,7 @@ def clickup_webhook():
                     msg = f"""
 🔄 <b>THAY ĐỔI TRẠNG THÁI</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 👤 Người thay đổi: <b>{action_user}</b>
 📌 Từ: {old_status} → <b>{new_status}</b>
@@ -1302,6 +1336,7 @@ def clickup_webhook():
                 msg = f"""
 👤 <b>PHÂN CÔNG TASK</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 ➕ Được giao cho: <b>{new_assignee}</b>
 ⚡ Mức độ: {priority_text}
@@ -1321,6 +1356,7 @@ def clickup_webhook():
                 msg = f"""
 👤 <b>XÓA PHÂN CÔNG</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 ➖ Đã xóa: <b>{removed_assignee}</b>
 ⚡ Mức độ: {priority_text}
@@ -1339,6 +1375,7 @@ def clickup_webhook():
                 msg = f"""
 📅 <b>THAY ĐỔI DEADLINE</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 👤 Người thay đổi: <b>{action_user}</b>
 📅 Deadline mới: <b>{new_due}</b>
@@ -1356,6 +1393,7 @@ def clickup_webhook():
         msg = f"""
 🗑️ <b>TASK ĐÃ BỊ XÓA</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 👤 Người xóa: <b>{action_user}</b>
 ⚡ Mức độ: {priority_text}
@@ -1382,6 +1420,7 @@ def clickup_webhook():
         msg = f"""
 💬 <b>COMMENT MỚI</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 Task: <b>{task_name}</b>
 👤 Người comment: <b>{action_user}</b>
 ⚡ Mức độ: {priority_text}
@@ -1400,13 +1439,14 @@ def clickup_webhook():
 def home():
     return jsonify({
         "status": "running",
-        "service": "ClickUp → Telegram Webhook (Fixed Multi-chat)",
-        "version": "2.1",
+        "service": "ClickUp → Telegram Webhook (Multi-chat + Subtasks)",
+        "version": "2.2",
         "features": [
             "✅ Multi-chat support for multiple tags",
             "✅ Real-time updates (no cache)",
             "✅ Parallel message sending",
-            "✅ Fixed tag_added/removed events"
+            "✅ Subtask statistics in reports",
+            "✅ Fixed tag events"
         ],
         "tag_mappings": TAG_TO_CHAT_ID,
         "cache_mode": "DISABLED" if not CACHE_ENABLED else "ENABLED"
@@ -1492,10 +1532,7 @@ def trigger_weekly_report():
 
 @app.route('/trigger_deadline_warning', methods=['GET', 'HEAD'])
 def trigger_deadline_warning():
-    """
-    FIXED: Nhắc deadline trước 1 ngày (không phải ngày hôm đó)
-    Chạy 2 lần/ngày: 9h sáng và 7h tối
-    """
+    """Nhắc deadline trước 1 ngày"""
     if request.method == 'HEAD':
         return '', 200
     
@@ -1510,7 +1547,6 @@ def trigger_deadline_warning():
         
         now_vn = get_vn_now()
         
-        # FIX: Kiểm tra tasks có deadline NGÀY MAI (không phải hôm nay)
         tomorrow = now_vn + datetime.timedelta(days=1)
         tomorrow_start = tomorrow.replace(hour=0, minute=0, second=0, microsecond=0)
         tomorrow_end = tomorrow.replace(hour=23, minute=59, second=59, microsecond=999999)
@@ -1521,7 +1557,6 @@ def trigger_deadline_warning():
             status_info = task.get('status', {})
             status = status_info.get('status', '').lower() if isinstance(status_info, dict) else ''
             
-            # Skip completed tasks
             if status in ['complete', 'completed', 'closed', 'done', 'achevé']:
                 continue
             
@@ -1533,10 +1568,12 @@ def trigger_deadline_warning():
                 due_utc = datetime.datetime.fromtimestamp(int(due_date) / 1000, tz=pytz.UTC)
                 due_vn = due_utc.astimezone(VN_TZ)
                 
-                # CRITICAL: Chỉ nhắc tasks có deadline NGÀY MAI
                 if tomorrow_start <= due_vn <= tomorrow_end:
                     task_name = task.get('name', 'Không rõ')
                     task_url = task.get('url', '')
+                    
+                    parent_id = task.get('parent')
+                    task_type = "📝 Subtask" if parent_id else "📁 Parent Task"
                     
                     assignees = task.get('assignees', [])
                     if assignees:
@@ -1558,6 +1595,7 @@ def trigger_deadline_warning():
                     msg = f"""
 ⏰ <b>CẢNH BÁO: TASK SẮP HẾT HẠN NGÀY MAI!</b>
 ━━━━━━━━━━━━━━━━━━━━
+{task_type}
 📋 <b>{task_name}</b>
 👥 Người phụ trách: <b>{assignees_text}</b>
 ⚡ Mức độ: {priority_text}
@@ -1619,13 +1657,13 @@ def test_multi_tag():
 
 if __name__ == '__main__':
     print("\n" + "="*60)
-    print("🚀 ClickUp → Telegram Webhook Service v2.1 (FIXED)")
+    print("🚀 ClickUp → Telegram Webhook Service v2.2")
     print("="*60)
-    print("✅ FIXES APPLIED:")
-    print("   1. Multi-chat support - gửi đến TẤT CẢ chats có tag")
-    print("   2. Real-time mode - không dùng cache khi update")
-    print("   3. Force refresh - luôn lấy data mới nhất")
-    print("   4. Parallel sending - gửi đồng thời nhiều chats")
+    print("✅ NEW FEATURES:")
+    print("   1. ✅ Subtask statistics in reports")
+    print("   2. ✅ Multi-chat support")
+    print("   3. ✅ Real-time mode (no cache)")
+    print("   4. ✅ Parent/Subtask distinction")
     print("="*60)
     print(f"📍 Tag Mappings:")
     for tag, chat_id in TAG_TO_CHAT_ID.items():
